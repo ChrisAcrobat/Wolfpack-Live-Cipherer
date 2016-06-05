@@ -16,6 +16,7 @@ public class Cipher
     {
         try
         {
+            addCipher(3, 6, 6, "RF4YWB08TPZVQX6JMA2I3LENDKG5SUC1O9H7");
         }
         catch(CipherAlreadyExistException e)
         {
