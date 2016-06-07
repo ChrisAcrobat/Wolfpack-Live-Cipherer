@@ -1,7 +1,7 @@
-package se.olofsson.hmsmarulken.codecipher;
+package se.olofsson.hmsmarulken.cipherer;
 
-import se.olofsson.hmsmarulken.codecipher.exceptions.DuplicatesOfCipherableCharsException;
-import se.olofsson.hmsmarulken.codecipher.exceptions.UnevenNumberOfCipherableCharsException;
+import se.olofsson.hmsmarulken.cipherer.exceptions.DuplicatesOfCipherableCharsException;
+import se.olofsson.hmsmarulken.cipherer.exceptions.UnevenNumberOfCipherableCharsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +14,25 @@ public class CipherableChars
     public final String chars;
     public static final String PASS_THROUGH = "åäö\n ".toUpperCase();
 
-    public CipherableChars()
+    public CipherableChars(List<Character> supportedCharacters)
     {
         String chars = "";
 
-        for(char c = 'A'; c < ('Z' + 1); c++)
+        for(char c = 'A'; c <= 'Z'; c++)
         {
             chars += c;
+            supportedCharacters.add(c);
         }
 
         for(int i = 0; i < 10; i++)
         {
             chars += i;
+            supportedCharacters.add((String.valueOf(i)).charAt(0));
+        }
+
+        for(char _char : PASS_THROUGH.toCharArray())
+        {
+            supportedCharacters.add(_char);
         }
 
         try
@@ -50,7 +57,7 @@ public class CipherableChars
         {
             if(listOfChars.contains(c))
             {
-                throw new DuplicatesOfCipherableCharsException();
+                throw new DuplicatesOfCipherableCharsException(c);
             }
             else
             {

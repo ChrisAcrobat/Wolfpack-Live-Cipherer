@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HMSMarulkenCodeCipher.iml" filepath="$PROJECT_DIR$/HMSMarulkenCodeCipher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HMSMarulkenCipherer.iml" filepath="$PROJECT_DIR$/HMSMarulkenCipherer.iml" />
     </modules>
   </component>
 </project>
