@@ -16,6 +16,6 @@ public class Main
     public static void main(String[] args)
     {
         new LiveCipher().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        new Cipherer().getNewCipher();
+        //new Cipherer().getNewCipher();
     }
 }

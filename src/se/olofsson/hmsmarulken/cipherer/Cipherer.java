@@ -12,9 +12,9 @@ public class Cipherer
 {
     private final Map<Integer, Map<Integer, Map<Integer, String>>> KNOWN_CIPHERS = new HashMap<>();
 
-    int leftRoller;
-    int middleRoller;
-    int rightRoller;
+    private int leftRoller = 0;
+    private int middleRoller = 0;
+    private int rightRoller = 0;
 
     Cipherer()
     {
@@ -62,6 +62,50 @@ public class Cipherer
         return KNOWN_CIPHERS.get(leftRoller).get(middleRoller).get(rightRoller);
     }
 
+    public Integer[] getRollerPositions(int roller)
+    {
+        Set<Integer> sets = null;
+        Integer[] positions = new Integer[]{};
+
+        switch(roller)
+        {
+            case 0:
+                sets = KNOWN_CIPHERS.keySet();
+                break;
+
+            case  1:
+                if(KNOWN_CIPHERS.containsKey(leftRoller))
+                {
+                    sets = KNOWN_CIPHERS.get(leftRoller).keySet();
+                }
+                break;
+
+            case 2:
+                if(KNOWN_CIPHERS.containsKey(leftRoller))
+                {
+                    Map<Integer, Map<Integer, String>> r = KNOWN_CIPHERS.get(leftRoller);
+
+                    if(r.containsKey(middleRoller))
+                    {
+                        sets = r.get(middleRoller).keySet();
+                    }
+                }
+                break;
+        }
+
+        if(sets == null)
+        {
+            positions = new Integer[]{0};
+        }
+        else
+        {
+            positions = sets.toArray(positions);
+            Arrays.sort(positions);
+        }
+
+        return positions;
+    }
+
     public String removeUnsupportedCharacters(String text)
     {
         Set<Character> uniqueChars = new LinkedHashSet<>();
@@ -82,11 +126,34 @@ public class Cipherer
         return text;
     }
 
-    public void setRollers(int leftRoller, int middleRoller, int rightRoller)
+    public int[] setRollers(int leftRoller, int middleRoller, int rightRoller)
     {
+        Integer[] test = new Integer[]{};
+
+        if(!KNOWN_CIPHERS.containsKey(leftRoller))
+        {
+            leftRoller = KNOWN_CIPHERS.keySet().toArray(test)[0];
+        }
+
+        Map<Integer, Map<Integer, String>> r1 = KNOWN_CIPHERS.get(leftRoller);
+
+        if(!r1.containsKey(middleRoller))
+        {
+            middleRoller = r1.keySet().toArray(test)[0];
+        }
+
+        Map<Integer, String> r2 = r1.get(middleRoller);
+
+        if(!r2.containsKey(rightRoller))
+        {
+            rightRoller = r2.keySet().toArray(test)[0];
+        }
+
         this.leftRoller = leftRoller;
         this.middleRoller = middleRoller;
         this.rightRoller = rightRoller;
+
+        return new int[]{leftRoller, middleRoller, rightRoller};
     }
 
     public String cipherMessage(String message)

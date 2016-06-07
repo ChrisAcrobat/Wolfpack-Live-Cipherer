@@ -77,13 +77,15 @@ public class TextFormatter extends Thread implements Runnable
 
                 text = text.toUpperCase();
                 text = CIPHERER.removeUnsupportedCharacters(text);
-
                 from.setText(text);
+
+                if(text.length() < caretPosition)
+                {
+                    caretPosition = text.length();
+                }
                 from.setCaretPosition(caretPosition);
 
-                caretPosition = to.getCaretPosition();
                 text = CIPHERER.cipherMessage(text);
-
                 to.setText(text);
                 to.setCaretPosition(caretPosition);
 
