@@ -5,7 +5,8 @@ import se.olofsson.hmsmarulken.cipherer.exceptions.CipherAlreadyExistException;
 import java.util.*;
 
 /**
- * Created by Chris_Acrobat on 2016-06-03.
+ * Created on 2016-06-03.
+ * @author Christoffer Olofsson
  */
 public class Cipherer
 {
@@ -19,6 +20,7 @@ public class Cipherer
     {
         try
         {
+            addCipher(0, 0, 0, "BADCFEHGJILKNMPORQTSVUXWZY1032547698");
             addCipher(3, 6, 6, "RF4YWB08TPZVQX6JMA2I3LENDKG5SUC1O9H7");
             addCipher(6, 1, 0, "QT0FYDSXKNI84J91A6GBWZUHEVCP57M2R3LO");
         }
