@@ -3,7 +3,8 @@ package se.olofsson.hmsmarulken.cipherer;
 import javax.swing.*;
 
 /**
- * Created by Chris_Acrobat on 2016-06-07.
+ * Created on 2016-06-07.
+ * @author Christoffer Olofsson
  */
 public class TextFormatter extends Thread implements Runnable
 {
@@ -76,13 +77,15 @@ public class TextFormatter extends Thread implements Runnable
 
                 text = text.toUpperCase();
                 text = CIPHERER.removeUnsupportedCharacters(text);
-
                 from.setText(text);
+
+                if(text.length() < caretPosition)
+                {
+                    caretPosition = text.length();
+                }
                 from.setCaretPosition(caretPosition);
 
-                caretPosition = to.getCaretPosition();
                 text = CIPHERER.cipherMessage(text);
-
                 to.setText(text);
                 to.setCaretPosition(caretPosition);
 

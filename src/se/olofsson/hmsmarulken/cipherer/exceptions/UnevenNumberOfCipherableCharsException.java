@@ -1,7 +1,8 @@
 package se.olofsson.hmsmarulken.cipherer.exceptions;
 
 /**
- * Created by Chris_Acrobat on 2016-05-31.
+ * Created on 2016-05-31.
+ * @author Christoffer Olofsson
  */
 public class UnevenNumberOfCipherableCharsException extends Exception
 {
