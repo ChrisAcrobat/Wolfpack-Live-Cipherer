@@ -3,7 +3,8 @@ package se.olofsson.hmsmarulken.cipherer;
 import javax.swing.*;
 
 /**
- * Created by Chris_Acrobat on 2016-06-07.
+ * Created on 2016-06-07.
+ * @author Christoffer Olofsson
  */
 public class TextFormatter extends Thread implements Runnable
 {

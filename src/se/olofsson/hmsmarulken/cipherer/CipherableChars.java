@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Chris_Acrobat on 2016-05-29.
+ * Created on 2016-05-29.
+ * @author Christoffer Olofsson
  */
 public class CipherableChars
 {
