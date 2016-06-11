@@ -1,6 +1,8 @@
 package se.olofsson.hmsmarulken.cipherer;
 
-import se.olofsson.hmsmarulken.cipherer.exceptions.CipherAlreadyExistException;
+import se.olofsson.hmsmarulken.cipherer.exceptions.CipherKeyAlreadyExistException;
+import se.olofsson.hmsmarulken.cipherer.exceptions.DuplicatesOfCipherableCharsException;
+import se.olofsson.hmsmarulken.cipherer.exceptions.UnevenNumberOfCipherableCharsException;
 
 import java.util.*;
 
@@ -24,13 +26,13 @@ public class Cipherer
             addCipher(3, 6, 6, "RF4YWB08TPZVQX6JMA2I3LENDKG5SUC1O9H7");
             addCipher(6, 1, 0, "QT0FYDSXKNI84J91A6GBWZUHEVCP57M2R3LO");
         }
-        catch(CipherAlreadyExistException e)
+        catch(CipherKeyAlreadyExistException e)
         {
             e.printStackTrace();
         }
     }
 
-    public boolean addCipher(int leftRoller, int middleRoller, int rightRoller, String cipher) throws CipherAlreadyExistException
+    public boolean addCipher(int leftRoller, int middleRoller, int rightRoller, String cipher) throws CipherKeyAlreadyExistException
     {
         Map leftRollerMap = KNOWN_CIPHERS.get(leftRoller);
         if(leftRollerMap == null)
@@ -49,7 +51,7 @@ public class Cipherer
         String storedCipher = (String) middleRollerMap.get(rightRoller);
         if(storedCipher != null)
         {
-            throw new CipherAlreadyExistException(leftRoller, middleRoller, rightRoller);
+            throw new CipherKeyAlreadyExistException(leftRoller, middleRoller, rightRoller);
         }
 
         middleRollerMap.put(rightRoller, cipher.toUpperCase());
@@ -158,8 +160,11 @@ public class Cipherer
 
     public String cipherMessage(String message)
     {
-        String cipher = getCipher(leftRoller, middleRoller, rightRoller);
+        return cipherMessage(message, getCipher(leftRoller, middleRoller, rightRoller));
+    }
 
+    public String cipherMessage(String message, String cipher)
+    {
         char[] chars = message.toCharArray();
 
         for(int c = 0; c < chars.length; c++)
@@ -177,63 +182,32 @@ public class Cipherer
         return new String(chars);
     }
 
-    public String getNewCipher()
+    public String validateCipher(String cipher)
     {
-        int numberOfChars = Main.CIPHERABLE_CHARS.length()/2;
-        char[] ciphered = new char[Main.CIPHERABLE_CHARS.length()];
-
-        List charsLeft = new ArrayList<>();
-        for(char _char : Main.CIPHERABLE_CHARS.toCharArray())
+        try
         {
-            charsLeft.add(_char);
+            CipherableChars.validate(cipher);
+        }
+        catch(Exception e)
+        {
+            return "Invalid cipher";
         }
 
-        Scanner scanner = new Scanner(System.in);
-
-        for(int c = 0; c < numberOfChars; c++)
+        if(Main.CIPHERABLE_CHARS.length() != cipher.length())
         {
-            char charOrigin = (char) charsLeft.get(0);
+            return "Invalid cipher - to long or short";
+        }
 
-            while(true)
+        for(char _char : Main.CIPHERABLE_CHARS.toCharArray())
+        {
+            int index = cipher.indexOf(_char);
+
+            if(index < 0)
             {
-                char _char;
-
-                if(c < numberOfChars - 1)   // If more than one choices are left.
-                {
-                    System.out.println("Press ciphered of: " + charOrigin + " (chars left: " + (numberOfChars - c - 1) + ")");
-                    String line = scanner.nextLine();
-
-                    if(line.length() != 1)  // If input is more than one char: Do not accept - throw away and try again.
-                    {
-                        continue;
-                    }
-
-                    _char = line.toUpperCase().charAt(0);
-
-                    if(!charsLeft.contains(_char) || _char == charOrigin)  // Check if char is valid. If not: Do not accept - throw away and try again.
-                    {
-                        continue;
-                    }
-                    charsLeft.remove((Character) _char);
-                    charsLeft.remove((Character) charOrigin);
-                }
-                else
-                {
-                    _char = (char) charsLeft.get(1);
-                }
-
-                int index = Main.CIPHERABLE_CHARS.indexOf(_char);
-                int indexOrigin = Main.CIPHERABLE_CHARS.indexOf(charOrigin);
-
-                ciphered[indexOrigin] = _char;
-                ciphered[index] = charOrigin;
-                break;
+                return "Invalid cipher - unsupported character: " + _char;
             }
         }
 
-        String cipher = new String(ciphered);
-
-        System.out.println("cipher: " + cipher);
-        return cipher;
+        return "";
     }
 }
