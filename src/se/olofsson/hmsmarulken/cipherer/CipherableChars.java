@@ -38,8 +38,7 @@ public class CipherableChars
 
         try
         {
-            checkIfNumberOfCharsIsEven(chars);
-            checkForDuplicates(chars.toCharArray());
+            validate(chars);
         }
         catch(Exception e)
         {
@@ -50,8 +49,14 @@ public class CipherableChars
         this.chars = chars;
     }
 
+    public static void validate(String chars) throws UnevenNumberOfCipherableCharsException, DuplicatesOfCipherableCharsException
+    {
+        checkIfNumberOfCharsIsEven(chars);
+        checkForDuplicates(chars.toCharArray());
+    }
+
     /** Check if contains duplicates */
-    private void checkForDuplicates(char[] chars) throws DuplicatesOfCipherableCharsException
+    private static void checkForDuplicates(char[] chars) throws DuplicatesOfCipherableCharsException
     {
         List<Character> listOfChars = new ArrayList();
         for(char c: chars)
@@ -68,7 +73,7 @@ public class CipherableChars
     }
 
     /** Check if number of chars is even */
-    private void checkIfNumberOfCharsIsEven(String chars) throws UnevenNumberOfCipherableCharsException
+    private static void checkIfNumberOfCharsIsEven(String chars) throws UnevenNumberOfCipherableCharsException
     {
         if(chars.length()%2 == 1)
         {
