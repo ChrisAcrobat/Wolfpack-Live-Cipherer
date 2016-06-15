@@ -1,6 +1,10 @@
 package se.olofsson.hmsmarulken.cipherer;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URI;
 
 /**
  * Created by Chris_Acrobat on 2016-06-11.
@@ -8,6 +12,7 @@ import javax.swing.*;
 public class About extends JFrame
 {
     private JPanel pnlRoot;
+    private JButton elegantthemesAtIconArchiveComButton;
 
     public About()
     {
@@ -19,5 +24,29 @@ public class About extends JFrame
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        elegantthemesAtIconArchiveComButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                About.this.openSourceToSubmarineIcon();
+            }
+        });
+    }
+
+    private void openSourceToSubmarineIcon()
+    {
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+
+        if(desktop != null && desktop.isSupported(Desktop.Action.BROWSE))
+        {
+            try
+            {
+                desktop.browse(URI.create("http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html"));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
