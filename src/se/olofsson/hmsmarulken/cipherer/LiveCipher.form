@@ -58,6 +58,7 @@
               <component id="1891a" class="javax.swing.JTextArea" binding="txtUpper">
                 <constraints/>
                 <properties>
+                  <font name="Consolas"/>
                   <lineWrap value="true"/>
                   <wrapStyleWord value="true"/>
                 </properties>
@@ -74,6 +75,7 @@
               <component id="adcbc" class="javax.swing.JTextArea" binding="txtLower">
                 <constraints/>
                 <properties>
+                  <font name="Consolas"/>
                   <lineWrap value="true"/>
                   <wrapStyleWord value="true"/>
                 </properties>

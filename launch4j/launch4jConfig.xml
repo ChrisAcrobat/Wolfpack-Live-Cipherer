@@ -15,10 +15,10 @@
   <manifest></manifest>
   <icon>C:\Users\Chris_Acrobat\IdeaProjects\HMSMarulkenCodeCipher\launch4j\Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico</icon>
   <jre>
-    <path>C:\Program Files (x86)\Java\jre1.8.0_91</path>
+    <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
-    <bundledJreAsFallback>true</bundledJreAsFallback>
-    <minVersion></minVersion>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.8.0</minVersion>
     <maxVersion></maxVersion>
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>

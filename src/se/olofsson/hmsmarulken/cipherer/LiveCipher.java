@@ -44,7 +44,40 @@ public class LiveCipher extends JFrame
             JMenu utility = new JMenu("Utility");
             {
                 JMenuItem newCipher = new JMenuItem("Create new cipher");
-                newCipher.addActionListener(e -> new CreateNewCipher().getNewCipher());
+                newCipher.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseClicked(MouseEvent mouseEvent)
+                    {
+                        //
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent mouseEvent)
+                    {
+                        //
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent mouseEvent)
+                    {
+                        if(SwingUtilities.isLeftMouseButton(mouseEvent))
+                        {
+                            buttonPressed(NEW_CIPHER_BUTTON);
+                        }
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent mouseEvent)
+                    {
+                        //
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent mouseEvent)
+                    {
+                        //
+                    }
+                });
                 utility.add(newCipher);
 
                 jMenuBar.add(utility);
@@ -53,10 +86,14 @@ public class LiveCipher extends JFrame
             // Add about-button
             JMenu about = new JMenu("About");
             {
-                about.addMouseListener(new MouseListener() {
+                about.addMouseListener(new MouseListener(){
                     @Override
-                    public void mouseClicked(MouseEvent e) {
-                        buttonPressed(e, ABOUT_BUTTON);
+                    public void mouseClicked(MouseEvent mouseEvent)
+                    {
+                        if(SwingUtilities.isLeftMouseButton(mouseEvent))
+                        {
+                            buttonPressed(ABOUT_BUTTON);
+                        }
                     }
 
                     @Override
@@ -190,20 +227,17 @@ public class LiveCipher extends JFrame
         }
     }
 
-    private void buttonPressed(MouseEvent mouseEvent, int button)
+    private void buttonPressed(int button)
     {
-        if(SwingUtilities.isLeftMouseButton(mouseEvent))
+        switch(button)
         {
-            switch(button)
-            {
-                case ABOUT_BUTTON:
-                    new About();
-                    break;
+            case ABOUT_BUTTON:
+                new About();
+                break;
 
-                case NEW_CIPHER_BUTTON:
-                    new CreateNewCipher().getNewCipher();
-                    break;
-            }
+            case NEW_CIPHER_BUTTON:
+                new CreateNewCipher();
+                break;
         }
     }
 }

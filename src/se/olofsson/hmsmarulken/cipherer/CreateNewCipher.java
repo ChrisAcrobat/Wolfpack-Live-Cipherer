@@ -11,12 +11,24 @@ import java.util.Scanner;
 public class CreateNewCipher extends JFrame
 {
     private JPanel pnlRoot;
+    private JTextField txtNewCipher;
+    private JPanel pnlChars;
 
     public CreateNewCipher()
     {
-        setTitle("About");
+        setTitle("Create new cipher");
         setContentPane(pnlRoot);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        final char[] CHARS = Main.CIPHERABLE_CHARS.toCharArray();
+        for(int c = 0; c < CHARS.length/2; c++)
+        {
+            char _char = CHARS[c];
+            PanelCipherPair panelCipherPair = new PanelCipherPair(_char);
+            pnlChars.add(panelCipherPair);
+        }
+
+        txtNewCipher.setHorizontalAlignment(JTextField.CENTER);
 
         pack();
         setResizable(false);

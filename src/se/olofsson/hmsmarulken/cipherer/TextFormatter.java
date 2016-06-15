@@ -64,33 +64,28 @@ public class TextFormatter extends Thread implements Runnable
         }
     }
 
-    private void cipher(JTextArea from, JTextArea to)
+    private void cipher(final JTextArea FROM, final JTextArea TO)
     {
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            @Override
-            public void run()
+        SwingUtilities.invokeLater(() -> {
+            int caretPosition = FROM.getCaretPosition();
+
+            String text = FROM.getText();
+
+            text = text.toUpperCase();
+            text = CIPHERER.removeUnsupportedCharacters(text);
+            FROM.setText(text);
+
+            if(text.length() < caretPosition)
             {
-                int caretPosition = from.getCaretPosition();
-
-                String text = from.getText();
-
-                text = text.toUpperCase();
-                text = CIPHERER.removeUnsupportedCharacters(text);
-                from.setText(text);
-
-                if(text.length() < caretPosition)
-                {
-                    caretPosition = text.length();
-                }
-                from.setCaretPosition(caretPosition);
-
-                text = CIPHERER.cipherMessage(text);
-                to.setText(text);
-                to.setCaretPosition(caretPosition);
-
-                busyWait = false;
+                caretPosition = text.length();
             }
+            FROM.setCaretPosition(caretPosition);
+
+            text = CIPHERER.cipherMessage(text);
+            TO.setText(text);
+            TO.setCaretPosition(caretPosition);
+
+            busyWait = false;
         });
     }
 }
