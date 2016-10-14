@@ -1,4 +1,4 @@
-package se.olofsson.hmsmarulken.cipherer.exceptions;
+package se.olofsson.wolfpack.livecipherer.exceptions;
 
 /**
  * Created on 2016-05-29.
