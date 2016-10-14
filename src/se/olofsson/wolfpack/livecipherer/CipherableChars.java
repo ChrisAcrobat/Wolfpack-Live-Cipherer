@@ -1,7 +1,7 @@
-package se.olofsson.hmsmarulken.cipherer;
+package se.olofsson.wolfpack.livecipherer;
 
-import se.olofsson.hmsmarulken.cipherer.exceptions.DuplicatesOfCipherableCharsException;
-import se.olofsson.hmsmarulken.cipherer.exceptions.UnevenNumberOfCipherableCharsException;
+import se.olofsson.wolfpack.livecipherer.exceptions.DuplicatesOfCipherableCharsException;
+import se.olofsson.wolfpack.livecipherer.exceptions.UnevenNumberOfCipherableCharsException;
 
 import java.util.ArrayList;
 import java.util.List;

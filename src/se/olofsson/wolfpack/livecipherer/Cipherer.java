@@ -1,8 +1,6 @@
-package se.olofsson.hmsmarulken.cipherer;
+package se.olofsson.wolfpack.livecipherer;
 
-import se.olofsson.hmsmarulken.cipherer.exceptions.CipherKeyAlreadyExistException;
-import se.olofsson.hmsmarulken.cipherer.exceptions.DuplicatesOfCipherableCharsException;
-import se.olofsson.hmsmarulken.cipherer.exceptions.UnevenNumberOfCipherableCharsException;
+import se.olofsson.wolfpack.livecipherer.exceptions.CipherKeyAlreadyExistException;
 
 import java.util.*;
 

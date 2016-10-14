@@ -1,4 +1,4 @@
-package se.olofsson.hmsmarulken.cipherer;
+package se.olofsson.wolfpack.livecipherer;
 
 import javax.swing.*;
 import java.awt.*;
