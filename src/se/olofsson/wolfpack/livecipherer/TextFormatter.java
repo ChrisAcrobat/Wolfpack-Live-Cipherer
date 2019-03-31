@@ -51,7 +51,7 @@ public class TextFormatter extends Thread implements Runnable
         String shifted = cipherMessage(data[1]);
         String reversed = cipherMessage(shifted);
         String other = cipherMessage(data[2]);
-        System.out.println(data[0] + ":      " + data[1] + "\nCiphered: " + shifted + "\nTarget:   " + data[2] + " (" + (shifted.equals(data[2])) + ")\nReversed: " + reversed + " (" + reversed.equals(data[1]) + ")\nOther:    " + other + " (" + other.equals(data[1]) + ")\n");
+        System.out.println(data[0] + ":      " + data[1] + "\nTarget:   " + data[2] + "\nCiphered: " + shifted + " (" + (shifted.equals(data[2])) + ")\nReversed: " + reversed + " (" + reversed.equals(data[1]) + ")\nOther:    " + other + " (" + other.equals(data[1]) + ")\n");
     }
 
     @Override
