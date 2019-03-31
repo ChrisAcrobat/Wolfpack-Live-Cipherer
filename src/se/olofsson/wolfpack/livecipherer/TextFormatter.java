@@ -13,7 +13,6 @@ public class TextFormatter extends Thread implements Runnable
     private final Roller RIGHT_ROLLER;
     private final JTextArea FIRST;
     private final JTextArea SECOND;
-    private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
 
     private String first;
     private String second;
@@ -81,12 +80,10 @@ public class TextFormatter extends Thread implements Runnable
 
     private void debugOutput(char leftRollerChar, char middleRollerChar, char rightRollerChar, char character, char target, char realTarget){
         RIGHT_ROLLER.setValue(rightRollerChar).setValue(middleRollerChar).setValue(leftRollerChar);
-        generateCurrentCharMapping();
-        char shifted = KEY_MAP.get(character);
+        char shifted = cipherCharacter(character);
         System.out.println("" + leftRollerChar + middleRollerChar + rightRollerChar + ":" + character + " => " + shifted + " (" + target + ", " + (shifted==target) + ")");
         RIGHT_ROLLER.stepNext();
-        generateCurrentCharMapping();
-        char shiftedReal = KEY_MAP.get(character);
+        char shiftedReal = cipherCharacter(character);
         System.err.println("" + leftRollerChar + middleRollerChar + rightRollerChar + ":" + character + " => " + shiftedReal + " (" + realTarget + ", " + (shiftedReal==realTarget) + ")");
     }
 
@@ -102,11 +99,7 @@ public class TextFormatter extends Thread implements Runnable
                     busyWait = true;
                     cipher(FIRST, SECOND);
                     first = FIRST.getText();
-
-                    continue;
-                }
-
-                if(!second.equals(SECOND.getText()))
+                }else if(!second.equals(SECOND.getText()))
                 {
                     busyWait = true;
                     cipher(SECOND, FIRST);
@@ -130,9 +123,8 @@ public class TextFormatter extends Thread implements Runnable
         SwingUtilities.invokeLater(() -> {
             int caretPosition = FROM.getCaretPosition();
 
-            String text = FROM.getText();
-
-            text = text.toUpperCase();
+            String text = FROM.getText().toUpperCase();
+            // TODO: Remove unsupported characters?
             FROM.setText(text);
 
             if(text.length() < caretPosition)
@@ -141,27 +133,33 @@ public class TextFormatter extends Thread implements Runnable
             }
             FROM.setCaretPosition(caretPosition);
 
-            TO.setText(text);
+            TO.setText(cipherMessage(text));
             TO.setCaretPosition(caretPosition);
 
             busyWait = false;
         });
     }
 
-    private void generateCurrentCharMapping(){
+    private String cipherMessage(String message){
+        return message;
+    }
+
+    private Character cipherCharacter(Character character){
         int number = RIGHT_ROLLER.getCipheredCharIndex();
         ArrayList<Character> list = new ArrayList<>();
         for(char i = 'A'; i <= 'Z'; i++){
             list.add(i);
         }
-        KEY_MAP.clear();
+        HashMap<Character, Character> keyMap = new HashMap<>();
         while(list.size() > 0){
             Character item = list.get(number % list.size());
             list.remove(item);
             Character chr = list.get(number % list.size());
             list.remove(chr);
-            KEY_MAP.put(item, chr);
-            KEY_MAP.put(chr, item);
+            keyMap.put(item, chr);
+            keyMap.put(chr, item);
         }
+
+        return keyMap.get(character);
     }
 }
