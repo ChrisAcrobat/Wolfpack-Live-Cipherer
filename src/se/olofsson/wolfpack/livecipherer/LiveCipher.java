@@ -203,32 +203,10 @@ public class LiveCipher extends JFrame
     }
 
     private void primeWheels(){
-        ArrayList<Integer> primeList = new ArrayList<>();
-        int prime = 2;
-        int rollerIndex = 0;
-        while(primeList.size() < 78){   // A->Z (x3)
-            boolean primeFound = true;
-            for(int previousPrime : primeList){
-                if(prime % previousPrime != 0){
-                    continue;
-                }
-                primeFound = false;
-                break;
-            }
-            if(primeFound){
-                primeList.add(prime);
-                Roller roller = null;
-                switch(rollerIndex%3){
-                    case 0: roller = ROLLER_1; break;
-                    case 1: roller = ROLLER_2; break;
-                    case 2: roller = ROLLER_3; break;
-                }
-                if(roller != null){
-                    roller.addPrime(prime);
-                }
-                rollerIndex++;
-            }
-            prime++;
+        Roller[] rollerList = new Roller[]{ROLLER_1, ROLLER_2, ROLLER_3};
+        int[] primeList = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397};
+        for(int index = 0; index < primeList.length; index++){
+            rollerList[index%3].addPrime(primeList[index]);
         }
     }
 
