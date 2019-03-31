@@ -29,16 +29,16 @@ public class TextFormatter extends Thread implements Runnable
         this.first = first.getText();
         this.second = second.getText();
 
-        String[] debugPrints = {
+        String[] debugPrints = {/*
                 "AAA-HEJ I STUGAN-SFO D QULNCQ",
-                "BBB-HEJ I STUGAN-SYD G MHGFBD",
+                "ZZV-RABBARBER-OVTFCBCZW",
                 "ZZV-HEJ I STUGAN-WUR Z PXXVYL",
                 "AAA-HELLO WORLD-SFUHX HEHVK",
                 "BBB-HELLO WORLD-SYOHX GBLVN",
                 "ZZV-HELLO WORLD-WUATM LYMHV",
                 "AAA-RABBARBER-BICKCLSZP",
-                "BBB-RABBARBER-BVWAHQOZG",
-                "ZZV-RABBARBER-OVTFCBCZW"
+                "BBB-RABBARBER-BVWAHQOZG",*/
+                "BBB-HEJ I STUGAN-SYD G MHGFBD"
         };
         for(String debugPrint : debugPrints){
             debugOutput(debugPrint);
