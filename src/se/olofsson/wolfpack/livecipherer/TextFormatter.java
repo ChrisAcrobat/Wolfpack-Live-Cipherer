@@ -30,61 +30,21 @@ public class TextFormatter extends Thread implements Runnable
         this.second = second.getText();
 
         String[] debugPrints = {
-                "AAAACO",
-                "AAABZR",
-                "AAACAY",
-                "AABBRC",
-                "AACCBB",
-                "ABCABN",
-                "ABCEQF",
-                "BCDEVX",
-                "AAADIG",
-                "AAAEQK",
-                "AAAFLV",
-                "AAAGXD",
-                "AAAHWS",
-                "ZZZZIB",
-                "BBBCAP",
-                "CCCBRA",
-                "FFFFWA",
-                "BFGAQZ",
-                "HEJATK",
-                "VILAQZ",
-                "MUSAZZ",
-                "BBBBYR",
-                "CABABP",
-                "CABSLJ",
-                "AAAZBP",
-                "AAARJB",
-                "ZZZBFZ",
-                "CCCABD",
-                "CCCRSY",
-                "CCCPFN",
-                "TABBDQ",
-                "TAKBIP",
-                "YENBEJ",
-                "TOBBUH",
-                "TORBPJ",
-                "LOKEDK",
-                "NEOOMA",
-                "NEOEVV",
-                "NEORKU",
-                "LUNAQI",
-                "TOBAKO",
-                "CAABOR"
+                "AAA-HEJ I STUGAN-HEJ I STUGAN",
+                "BBB-HEJ I STUGAN-HEJ I STUGAN",
+                "AAA-HELLO WORLD-HELLO WORLD",
+                "BBB-HELLO WORLD-HELLO WORLD"
         };
-        for(String string : debugPrints){
-            debugOutput(string.charAt(0), string.charAt(1), string.charAt(2), string.charAt(3), string.charAt(4), string.charAt(5));
+        for(String debugPrint : debugPrints){
+            debugOutput(debugPrint);
         }
     }
 
-    private void debugOutput(char leftRollerChar, char middleRollerChar, char rightRollerChar, char character, char target, char realTarget){
-        RIGHT_ROLLER.setValue(rightRollerChar).setValue(middleRollerChar).setValue(leftRollerChar);
-        char shifted = cipherCharacter(character);
-        System.out.println("" + leftRollerChar + middleRollerChar + rightRollerChar + ":" + character + " => " + shifted + " (" + target + ", " + (shifted==target) + ")");
-        RIGHT_ROLLER.stepNext();
-        char shiftedReal = cipherCharacter(character);
-        System.err.println("" + leftRollerChar + middleRollerChar + rightRollerChar + ":" + character + " => " + shiftedReal + " (" + realTarget + ", " + (shiftedReal==realTarget) + ")");
+    private void debugOutput(String debugPrint){
+        RIGHT_ROLLER.setValue(debugPrint.charAt(0)).setValue(debugPrint.charAt(1)).setValue(debugPrint.charAt(2));
+        String[] data = debugPrint.split("-");
+        String shifted = cipherMessage(data[1]);
+        System.out.println(data[0] + ": " + data[1] + " => " + shifted + " (" + (shifted==data[2]) + ")");
     }
 
     @Override
