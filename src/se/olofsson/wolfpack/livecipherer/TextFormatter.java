@@ -30,10 +30,15 @@ public class TextFormatter extends Thread implements Runnable
         this.second = second.getText();
 
         String[] debugPrints = {
-                "AAA-HEJ I STUGAN-HEJ I STUGAN",
-                "BBB-HEJ I STUGAN-HEJ I STUGAN",
-                "AAA-HELLO WORLD-HELLO WORLD",
-                "BBB-HELLO WORLD-HELLO WORLD"
+                "AAA-HEJ I STUGAN-SFO D QULNCQ",
+                "BBB-HEJ I STUGAN-SYD G MHGFBD",
+                "ZZV-HEJ I STUGAN-WUR Z PXXVYL",
+                "AAA-HELLO WORLD-SFUHX HEHVK",
+                "BBB-HELLO WORLD-SYOHX GBLVN",
+                "ZZV-HELLO WORLD-WUATM LYMHV",
+                "AAA-RABBARBER-BICKCLSZP",
+                "BBB-RABBARBER-BVWAHQOZG",
+                "ZZV-RABBARBER-OVTFCBCZW"
         };
         for(String debugPrint : debugPrints){
             debugOutput(debugPrint);
@@ -41,10 +46,12 @@ public class TextFormatter extends Thread implements Runnable
     }
 
     private void debugOutput(String debugPrint){
-        RIGHT_ROLLER.setValue(debugPrint.charAt(0)).setValue(debugPrint.charAt(1)).setValue(debugPrint.charAt(2));
+        RIGHT_ROLLER.setValue(debugPrint.charAt(2)).setValue(debugPrint.charAt(1)).setValue(debugPrint.charAt(0));
         String[] data = debugPrint.split("-");
         String shifted = cipherMessage(data[1]);
-        System.out.println(data[0] + ": " + data[1] + " => " + shifted + " (" + (shifted==data[2]) + ")");
+        String reversed = cipherMessage(shifted);
+        String other = cipherMessage(data[2]);
+        System.out.println(data[0] + ":      " + data[1] + "\nCiphered: " + shifted + "\nTarget:   " + data[2] + " (" + (shifted.equals(data[2])) + ")\nReversed: " + reversed + " (" + reversed.equals(data[1]) + ")\nOther:    " + other + " (" + other.equals(data[1]) + ")\n");
     }
 
     @Override
