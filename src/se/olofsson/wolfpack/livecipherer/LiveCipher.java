@@ -15,12 +15,7 @@ import java.util.HashMap;
  */
 public class LiveCipher extends JFrame
 {
-    private final Cipherer CIPHERER;
     private final int ABOUT_BUTTON = 0;
-    private final Roller ROLLER_1;
-    private final Roller ROLLER_2;
-    private final Roller ROLLER_3;
-    private final HashMap<Character, Character> KEY_MAP = new HashMap<>();
 
     private JPanel pnlRoot;
     private JTextArea txtUpper;
@@ -28,6 +23,7 @@ public class LiveCipher extends JFrame
     private JSpinner spnRollerLeft;
     private JSpinner spnRollerMiddle;
     private JSpinner spnRollerRight;
+    private JCheckBox cbxPrivateKey;
     private JMenuBar jMenuBar;
 
     private int leftRoller = 0;
@@ -126,15 +122,13 @@ public class LiveCipher extends JFrame
         }
 
         // Initiate rollers
-        ROLLER_3 = new Roller(spnRollerLeft, null, 3);
-        ROLLER_2 = new Roller(spnRollerMiddle, ROLLER_3, 2);
-        ROLLER_1 = new Roller(spnRollerRight, ROLLER_2, 1);
-        primeWheels();
-        generateCurrentCharMapping();
-        CIPHERER = new Cipherer();
-        CIPHERER.setRollers(leftRoller, middleRoller, rightRoller);
-        new TextFormatter(CIPHERER, txtUpper, txtLower).start();
-        rollerChanged();
+        Roller roller3 = new Roller(spnRollerLeft, null, 3);
+        Roller roller2 = new Roller(spnRollerMiddle, roller3, 2);
+        Roller roller1 = new Roller(spnRollerRight, roller2, 1);
+
+        Roller[] rollerList = new Roller[]{roller1, roller2, roller3};
+        primeWheels(rollerList);
+        new TextFormatter(roller1, txtUpper, txtLower).start();
 
         // Finalize frame
         pack();
@@ -143,134 +137,18 @@ public class LiveCipher extends JFrame
 
         // Add event handlers
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> {mouseEvent(e);}, AWTEvent.MOUSE_EVENT_MASK);
-
-        String[] debugPrints = {
-                "AAAACO",
-                "AAABZR",
-                "AAACAY",
-                "AABBRC",
-                "AACCBB",
-                "ABCABN",
-                "ABCEQF",
-                "BCDEVX",
-                "AAADIG",
-                "AAAEQK",
-                "AAAFLV",
-                "AAAGXD",
-                "AAAHWS",
-                "ZZZZIB",
-                "BBBCAP",
-                "CCCBRA",
-                "FFFFWA",
-                "BFGAQZ",
-                "HEJATK",
-                "VILAQZ",
-                "MUSAZZ",
-                "BBBBYR",
-                "CABABP",
-                "CABSLJ",
-                "AAAZBP",
-                "AAARJB",
-                "ZZZBFZ",
-                "CCCABD",
-                "CCCRSY",
-                "CCCPFN",
-                "TABBDQ",
-                "TAKBIP",
-                "YENBEJ",
-                "TOBBUH",
-                "TORBPJ",
-                "LOKEDK",
-                "NEOOMA",
-                "NEOEVV",
-                "NEORKU",
-                "LUNAQI",
-                "TOBAKO",
-                "CAABOR"
-        };
-        for (String string : debugPrints){
-            debugOutput(string.charAt(0), string.charAt(1), string.charAt(2), string.charAt(3), string.charAt(4));
-        }
     }
 
-    private void debugOutput(char leftRollerChar, char middleRollerChar, char rightRollerChar, char character, char target){
-        spnRollerLeft.setValue(leftRollerChar);
-        spnRollerMiddle.setValue(middleRollerChar);
-        spnRollerRight.setValue(rightRollerChar);
-        generateCurrentCharMapping();
-        char shifted = KEY_MAP.get(character);
-        System.out.println("" + leftRollerChar + middleRollerChar + rightRollerChar + ":" + character + " => " + shifted + " (" + target + ", " + (shifted==target) + ")");
-    }
-
-    private void primeWheels(){
-        Roller[] rollerList = new Roller[]{ROLLER_1, ROLLER_2, ROLLER_3};
+    private void primeWheels(Roller[] rollerList){
         int[] primeList = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397};
         for(int index = 0; index < primeList.length; index++){
             rollerList[index%3].addPrime(primeList[index]);
         }
-    }
-
-    private void generateCurrentCharMapping(){
-        int number = ROLLER_1.getCipheredCharIndex();
-        ArrayList<Character> list = new ArrayList<>();
-        for(char i = 'A'; i <= 'Z'; i++){
-            list.add(i);
-        }
-        KEY_MAP.clear();
-        while(list.size() > 0){
-            Character item = list.get(number % list.size());
-            list.remove(item);
-            Character chr = list.get(number % list.size());
-            list.remove(chr);
-            KEY_MAP.put(item, chr);
-            KEY_MAP.put(chr, item);
-        }
-    }
-
-    private void rollerChanged(){
-        changingRoller = true;
-
-        int[] newSettings = CIPHERER.setRollers(leftRoller, middleRoller, rightRoller);
-        leftRoller = newSettings[0];
-        middleRoller = newSettings[1];
-        rightRoller = newSettings[2];
-
-    //    setTitle("Wolfpack: Live Cipherer");  // TODO: Display public key?
-
-    //    spnRollerLeft.removeAllItems();
-    //    spnRollerMiddle.removeAllItems();
-    //    spnRollerRight.removeAllItems();
-
-        for(int roller = 0; roller < 3; roller++)
-        {
-            Integer[] positions = CIPHERER.getRollerPositions(roller);
-
-            for(int p : positions)
-            {
-                switch(roller)
-                {
-                    case 0:
-    //                    spnRollerLeft.addItem(p);
-                        break;
-
-                    case  1:
-    //                    spnRollerMiddle.addItem(p);
-                        break;
-
-                    case 2:
-    //                    spnRollerRight.addItem(p);
-                        break;
-                }
+        for(Roller roller : rollerList){
+            if(!roller.validate()){
+                System.err.println(roller + ": NOT VALID!");
             }
         }
-
-    //    spnRollerLeft.setSelectedItem(leftRoller);
-    //    spnRollerMiddle.setSelectedItem(middleRoller);
-    //    spnRollerRight.setSelectedItem(rightRoller);
-
-        txtLower.setText(CIPHERER.cipherMessage(txtUpper.getText()));
-
-        changingRoller = false;
     }
 
     private void mouseEvent(AWTEvent event){

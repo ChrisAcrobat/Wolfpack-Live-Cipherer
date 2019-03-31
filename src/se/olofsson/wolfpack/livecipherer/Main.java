@@ -10,9 +10,6 @@ import java.util.List;
  */
 public class Main
 {
-    public static final List<Character> SUPPORTED_CHARACTERS = new ArrayList<>();
-    public static final String CIPHERABLE_CHARS = new CipherableChars(SUPPORTED_CHARACTERS).getChars();
-
     public static void main(String[] args)
     {
         try
