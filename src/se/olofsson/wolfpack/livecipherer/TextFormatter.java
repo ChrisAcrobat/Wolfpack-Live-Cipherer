@@ -141,25 +141,48 @@ public class TextFormatter extends Thread implements Runnable
     }
 
     private String cipherMessage(String message){
-        return message;
+        boolean first = true;
+        String cipherMessage = "";
+        for(String subMessage : message.split("\n", -1)){
+            if(!first){
+                cipherMessage += "\n";
+            }else{
+                first = false;
+            }
+            int skipped = 0;
+            for(Character character : subMessage.toCharArray()){
+                if('A' <= character && character <= 'Z'){
+                    RIGHT_ROLLER.stepNext();
+                    cipherMessage += cipherCharacter(character);
+                }else{
+                    skipped++;
+                    if('0' <= character && character <= '9'){
+                        cipherMessage += character;
+                    }else{
+                        cipherMessage += ' ';
+                    }
+                }
+            }
+            RIGHT_ROLLER.step(-subMessage.length() + skipped);
+        }
+        return cipherMessage;
     }
 
     private Character cipherCharacter(Character character){
         int number = RIGHT_ROLLER.getCipheredCharIndex();
-        ArrayList<Character> list = new ArrayList<>();
+        ArrayList<Character> charactersToBeMapped = new ArrayList<>();
         for(char c = 'A'; c <= 'Z'; c++){
-            list.add(c);
+            charactersToBeMapped.add(c);
         }
         HashMap<Character, Character> keyMap = new HashMap<>();
-        while(list.size() > 0){
-            Character item = list.get(number % list.size());
-            list.remove(item);
-            Character chr = list.get(number % list.size());
-            list.remove(chr);
+        while(0 < charactersToBeMapped.size()){
+            Character item = charactersToBeMapped.get(number % charactersToBeMapped.size());
+            charactersToBeMapped.remove(item);
+            Character chr = charactersToBeMapped.get(number % charactersToBeMapped.size());
+            charactersToBeMapped.remove(chr);
             keyMap.put(item, chr);
             keyMap.put(chr, item);
         }
-
         return keyMap.get(character);
     }
 }
