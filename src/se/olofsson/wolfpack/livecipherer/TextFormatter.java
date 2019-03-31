@@ -147,8 +147,8 @@ public class TextFormatter extends Thread implements Runnable
     private Character cipherCharacter(Character character){
         int number = RIGHT_ROLLER.getCipheredCharIndex();
         ArrayList<Character> list = new ArrayList<>();
-        for(char i = 'A'; i <= 'Z'; i++){
-            list.add(i);
+        for(char c = 'A'; c <= 'Z'; c++){
+            list.add(c);
         }
         HashMap<Character, Character> keyMap = new HashMap<>();
         while(list.size() > 0){
