@@ -29,6 +29,7 @@ public class Roller
             else if('A'-1 == (Character) JSPINNER.getValue())
                 JSPINNER.setValue('Z');
         });
+        JSPINNER.addMouseWheelListener(e -> step(e.getWheelRotation()));
     }
 
     public Roller setValue(Character character){
