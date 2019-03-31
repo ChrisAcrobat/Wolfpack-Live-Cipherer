@@ -61,26 +61,10 @@ public class LiveCipher extends JFrame
                             }
                         }
                     }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        //
-                    }
+                    @Override public void mousePressed(MouseEvent e){}
+                    @Override public void mouseReleased(MouseEvent e){}
+                    @Override public void mouseEntered(MouseEvent e){}
+                    @Override public void mouseExited(MouseEvent e){}
                 });
                 jMenuBar.add(gitHub);
             }
@@ -96,26 +80,10 @@ public class LiveCipher extends JFrame
                             buttonPressed(ABOUT_BUTTON);
                         }
                     }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        //
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        //
-                    }
+                    @Override public void mousePressed(MouseEvent e){}
+                    @Override public void mouseReleased(MouseEvent e){}
+                    @Override public void mouseEntered(MouseEvent e){}
+                    @Override public void mouseExited(MouseEvent e){}
                 });
                 jMenuBar.add(about);
             }

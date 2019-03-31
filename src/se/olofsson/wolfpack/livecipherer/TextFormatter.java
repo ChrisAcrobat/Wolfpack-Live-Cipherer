@@ -91,7 +91,6 @@ public class TextFormatter extends Thread implements Runnable
             int caretPosition = FROM.getCaretPosition();
 
             String text = FROM.getText().toUpperCase();
-            // TODO: Remove unsupported characters?
             FROM.setText(text);
 
             if(text.length() < caretPosition)
