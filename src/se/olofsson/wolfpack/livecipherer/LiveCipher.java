@@ -96,7 +96,7 @@ public class LiveCipher extends JFrame
 
         Roller[] rollerList = new Roller[]{roller1, roller2, roller3};
         primeWheels(rollerList);
-        new TextFormatter(roller1, txtUpper, txtLower).start();
+        new TextFormatter(roller1, cbxPrivateKey, txtUpper, txtLower).start();
 
         // Finalize frame
         pack();

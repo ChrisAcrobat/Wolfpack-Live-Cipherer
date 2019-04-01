@@ -32,7 +32,18 @@ public class Roller
         JSPINNER.addMouseWheelListener(e -> step(e.getWheelRotation()));
     }
 
-    public Roller setValue(Character character){
+    public String getState(){
+        return (NEXT_ROLLER == null ? "" : NEXT_ROLLER.getState()) + JSPINNER.getValue();
+    }
+
+    public void setState(String characters){
+        JSPINNER.setValue(characters.charAt(characters.length()-1));
+        if(NEXT_ROLLER != null){
+            NEXT_ROLLER.setState(characters.substring(0, characters.length()-1));
+        }
+    }
+
+    public Roller setState(Character character){
         JSPINNER.setValue(character);
         return NEXT_ROLLER;
     }

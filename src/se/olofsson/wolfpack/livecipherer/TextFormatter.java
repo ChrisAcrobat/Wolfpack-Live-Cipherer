@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class TextFormatter extends Thread implements Runnable
 {
     private final Roller RIGHT_ROLLER;
+    private final JCheckBox USE_PRIVATE_KEY;
     private final JTextArea FIRST;
     private final JTextArea SECOND;
 
@@ -20,9 +21,10 @@ public class TextFormatter extends Thread implements Runnable
 
     private final long SLEEP = 1000/15;
 
-    public TextFormatter(Roller rightRoller, JTextArea first, JTextArea second)
+    public TextFormatter(Roller rightRoller, JCheckBox usePrivateKey, JTextArea first, JTextArea second)
     {
         RIGHT_ROLLER = rightRoller;
+        USE_PRIVATE_KEY = usePrivateKey;
         FIRST = first;
         SECOND = second;
 
@@ -46,7 +48,7 @@ public class TextFormatter extends Thread implements Runnable
     }
 
     private void debugOutput(String debugPrint){
-        RIGHT_ROLLER.setValue(debugPrint.charAt(2)).setValue(debugPrint.charAt(1)).setValue(debugPrint.charAt(0));
+        RIGHT_ROLLER.setState(debugPrint.charAt(2)).setState(debugPrint.charAt(1)).setState(debugPrint.charAt(0));
         String[] data = debugPrint.split("-");
         String shifted = cipherMessage(data[1]);
         String reversed = cipherMessage(shifted);
@@ -109,19 +111,21 @@ public class TextFormatter extends Thread implements Runnable
     private String cipherMessage(String message){
         boolean first = true;
         String cipherMessage = "";
+        String state = RIGHT_ROLLER.getState();
         for(String subMessage : message.split("\n", -1)){
             if(!first){
                 cipherMessage += "\n";
             }else{
                 first = false;
             }
-            int skipped = 0;
             for(Character character : subMessage.toCharArray()){
+                if(cipherMessage.length() == 3 && USE_PRIVATE_KEY.isSelected()){
+                    RIGHT_ROLLER.setState(cipherMessage);
+                }
                 if('A' <= character && character <= 'Z'){
                     RIGHT_ROLLER.stepNext();
                     cipherMessage += cipherCharacter(character);
                 }else{
-                    skipped++;
                     if('0' <= character && character <= '9'){
                         cipherMessage += character;
                     }else{
@@ -129,7 +133,7 @@ public class TextFormatter extends Thread implements Runnable
                     }
                 }
             }
-            RIGHT_ROLLER.step(-subMessage.length() + skipped);
+            RIGHT_ROLLER.setState(state);
         }
         return cipherMessage;
     }
