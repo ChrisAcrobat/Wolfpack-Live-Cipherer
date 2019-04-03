@@ -17,7 +17,9 @@ public class TextFormatter extends Thread implements Runnable
 
     private String first;
     private String second;
-    private boolean busyWait = false;
+    private String rollerState;
+    private boolean privateKeyIsActive;
+    private boolean isCipherWorking = false;
 
     private final long SLEEP = 1000/15;
 
@@ -30,6 +32,8 @@ public class TextFormatter extends Thread implements Runnable
 
         this.first = first.getText();
         this.second = second.getText();
+        rollerState = RIGHT_ROLLER.getState();
+        privateKeyIsActive = USE_PRIVATE_KEY.isSelected();
     }
 
     /**
@@ -68,38 +72,27 @@ public class TextFormatter extends Thread implements Runnable
     }
 
     @Override
-    public void run()
-    {
-        while(true)
-        {
-            if(!busyWait)
-            {
-                if(!first.equals(FIRST.getText()))
-                {
-                    busyWait = true;
+    public void run(){
+        while(true){
+            if(!isCipherWorking){
+                if(privateKeyIsActive != USE_PRIVATE_KEY.isSelected() || rollerState != RIGHT_ROLLER.getState() || !first.equals(FIRST.getText())){
                     cipher(FIRST, SECOND);
-                    first = FIRST.getText();
-                }else if(!second.equals(SECOND.getText()))
-                {
-                    busyWait = true;
+                }else if(!second.equals(SECOND.getText())){
                     cipher(SECOND, FIRST);
-                    second = SECOND.getText();
                 }
+                privateKeyIsActive = USE_PRIVATE_KEY.isSelected();
             }
 
-            try
-            {
+            try{
                 sleep(SLEEP);
-            }
-            catch(InterruptedException e)
-            {
+            }catch(InterruptedException e){
                 e.printStackTrace();
             }
         }
     }
 
-    private void cipher(final JTextArea FROM, final JTextArea TO)
-    {
+    private void cipher(final JTextArea FROM, final JTextArea TO){
+        isCipherWorking = true;
         SwingUtilities.invokeLater(() -> {
             int caretPosition = FROM.getCaretPosition();
 
@@ -115,7 +108,9 @@ public class TextFormatter extends Thread implements Runnable
             TO.setText(cipherMessage(text));
             TO.setCaretPosition(caretPosition);
 
-            busyWait = false;
+            first = FIRST.getText();
+            second = SECOND.getText();
+            isCipherWorking = false;
         });
     }
 
@@ -130,9 +125,6 @@ public class TextFormatter extends Thread implements Runnable
                 first = false;
             }
             for(Character character : subMessage.toCharArray()){
-                if(cipherMessage.length() == 3 && USE_PRIVATE_KEY.isSelected()){
-                    RIGHT_ROLLER.setState(cipherMessage);
-                }
                 if('A' <= character && character <= 'Z'){
                     RIGHT_ROLLER.stepNext();
                     cipherMessage += cipherCharacter(character);
@@ -142,6 +134,11 @@ public class TextFormatter extends Thread implements Runnable
                     }else{
                         cipherMessage += ' ';
                     }
+                }
+                boolean privateKeyIsValid = cipherMessage.replaceAll("[^A-Z]", "") == cipherMessage;
+                boolean privateKeyIsLength = cipherMessage.length() == 3;
+                if(privateKeyIsActive && privateKeyIsValid && privateKeyIsLength){
+                    RIGHT_ROLLER.setState(cipherMessage);
                 }
             }
             RIGHT_ROLLER.setState(state);

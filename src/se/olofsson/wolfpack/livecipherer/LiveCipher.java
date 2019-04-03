@@ -69,15 +69,23 @@ public class LiveCipher extends JFrame
                 jMenuBar.add(gitHub);
             }
 
-            // Add about-button
-            JMenu about = new JMenu("About");{
-                about.addMouseListener(new MouseListener(){
+            // Add GitHub-button
+            JMenu submarineIcon = new JMenu("Submarine-icon by Elegantthemes");{
+                submarineIcon.addMouseListener(new MouseListener(){
                     @Override
                     public void mouseClicked(MouseEvent mouseEvent)
                     {
                         if(SwingUtilities.isLeftMouseButton(mouseEvent))
                         {
-                            buttonPressed(ABOUT_BUTTON);
+                            if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                                try{
+                                    Desktop.getDesktop().browse(new java.net.URI("http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html"));
+                                }catch(IOException e){
+                                    e.printStackTrace();
+                                }catch(URISyntaxException e){
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     }
                     @Override public void mousePressed(MouseEvent e){}
@@ -85,7 +93,7 @@ public class LiveCipher extends JFrame
                     @Override public void mouseEntered(MouseEvent e){}
                     @Override public void mouseExited(MouseEvent e){}
                 });
-                jMenuBar.add(about);
+                jMenuBar.add(submarineIcon);
             }
         }
 
@@ -128,15 +136,6 @@ public class LiveCipher extends JFrame
             {
                 jMenuBar.setVisible(!jMenuBar.isVisible());
             }
-        }
-    }
-
-    private void buttonPressed(int button){
-        switch(button)
-        {
-            case ABOUT_BUTTON:
-                new About();
-                break;
         }
     }
 }
