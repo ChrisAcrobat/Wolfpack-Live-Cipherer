@@ -25,12 +25,7 @@ public class About extends JFrame
         setLocationRelativeTo(null);
         setVisible(true);
 
-        elegantthemesAtIconArchiveComButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                About.this.openSourceToSubmarineIcon();
-            }
-        });
+        elegantthemesAtIconArchiveComButton.addActionListener(e -> About.this.openSourceToSubmarineIcon());
     }
 
     private void openSourceToSubmarineIcon()
