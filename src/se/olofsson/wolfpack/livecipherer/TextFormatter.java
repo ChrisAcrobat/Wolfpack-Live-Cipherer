@@ -30,30 +30,41 @@ public class TextFormatter extends Thread implements Runnable
 
         this.first = first.getText();
         this.second = second.getText();
-
-        String[] debugPrints = {/*
-                "AAA-HEJ I STUGAN-SFO D QULNCQ",
-                "ZZV-RABBARBER-OVTFCBCZW",
-                "ZZV-HEJ I STUGAN-WUR Z PXXVYL",
-                "AAA-HELLO WORLD-SFUHX HEHVK",
-                "BBB-HELLO WORLD-SYOHX GBLVN",
-                "ZZV-HELLO WORLD-WUATM LYMHV",
-                "AAA-RABBARBER-BICKCLSZP",
-                "BBB-RABBARBER-BVWAHQOZG",*/
-                "BBB-HEJ I STUGAN-SYD G MHGFBD"
-        };
-        for(String debugPrint : debugPrints){
-            debugOutput(debugPrint);
-        }
     }
 
-    private void debugOutput(String debugPrint){
+    /**
+     * @param debugPrint Input example: AAA-CLEARTEXT-YJZYTUOIY<br>
+     * AAA -> Key<br>
+     * CLEARTEXT -> Cleartext message<br>
+     * YJZYTUOIY -> Ingame Enigma encryption
+     * @return Boolean if cipher worked properly.
+     */
+    private boolean debugOutput(String debugPrint){
         RIGHT_ROLLER.setState(debugPrint.charAt(2)).setState(debugPrint.charAt(1)).setState(debugPrint.charAt(0));
         String[] data = debugPrint.split("-");
         String shifted = cipherMessage(data[1]);
         String reversed = cipherMessage(shifted);
         String other = cipherMessage(data[2]);
-        System.out.println(data[0] + ":      " + data[1] + "\nTarget:   " + data[2] + "\nCiphered: " + shifted + " (" + (shifted.equals(data[2])) + ")\nReversed: " + reversed + " (" + reversed.equals(data[1]) + ")\nOther:    " + other + " (" + other.equals(data[1]) + ")\n");
+        boolean test_1 = shifted.equals(data[2]);
+        boolean test_2 = reversed.equals(data[1]);
+        boolean test_3 = other.equals(data[1]);
+        if(!test_1 || !test_2 || !test_3){
+            System.out.println(data[0] + ":      " + data[1] + "\nTarget:   " + data[2]);
+        }
+        if(!test_1){
+            System.out.println("Ciphered: " + shifted);
+        }
+        if(!test_2){
+            System.out.println("Reversed: " + reversed);
+        }
+        if(!test_3){
+            System.out.println("Other:    " + other);
+        }
+        if(!test_1 || !test_2 || !test_3){
+            System.out.println();
+        }
+
+        return test_1 && test_2 && test_3;
     }
 
     @Override
@@ -146,12 +157,12 @@ public class TextFormatter extends Thread implements Runnable
         }
         HashMap<Character, Character> keyMap = new HashMap<>();
         while(0 < charactersToBeMapped.size()){
-            Character item = charactersToBeMapped.get(number % charactersToBeMapped.size());
-            charactersToBeMapped.remove(item);
-            Character chr = charactersToBeMapped.get(number % charactersToBeMapped.size());
-            charactersToBeMapped.remove(chr);
-            keyMap.put(item, chr);
-            keyMap.put(chr, item);
+            Character cipheredCharacter_1 = charactersToBeMapped.get(number % charactersToBeMapped.size());
+            charactersToBeMapped.remove(cipheredCharacter_1);
+            Character cipheredCharacter_2 = charactersToBeMapped.get(number % charactersToBeMapped.size());
+            charactersToBeMapped.remove(cipheredCharacter_2);
+            keyMap.put(cipheredCharacter_1, cipheredCharacter_2);
+            keyMap.put(cipheredCharacter_2, cipheredCharacter_1);
         }
         return keyMap.get(character);
     }

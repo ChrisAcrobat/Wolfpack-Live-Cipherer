@@ -67,7 +67,8 @@ public class Roller
         Character currentCharacter = (Character) JSPINNER.getValue();
         int charIndex = currentCharacter - 'A';
         int prime = PRIME_LIST[(charIndex + OFFSET) % PRIME_LIST.length];
-        return NEXT_ROLLER == null ? prime : NEXT_ROLLER.getCipheredCharIndex() * prime;
+        int semiPrime = NEXT_ROLLER == null ? 1 : NEXT_ROLLER.getCipheredCharIndex();
+        return prime * semiPrime;
     }
 
     public void step(int steps){
