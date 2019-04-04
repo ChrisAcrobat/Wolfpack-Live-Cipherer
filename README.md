@@ -1,5 +1,7 @@
 # Wolfpack: Live Cipherer
 A fan-made tool to use with the game [Wolfpack](http://wolfpackgame.com/) for crypting and decrypting messages faster.
 
-## Project is on hold.
-Because of the the game is going to go through some [big changes](https://www.kickstarter.com/projects/1655728789/hms-marulken-reboot/posts/1608213), I will now put this project on hold. I will continue on it, but for now I will wait until the changes is playable and any new Enigma is released.
+## Project is ~~on hold.~~ _Alive!_
+Now after three years of sleep and Wolfpack is released as early access on [Steam](https://store.steampowered.com/app/490920/) ,I have now returned to this project. The Live Cipherer is now compatible with the current version of Wolfpack (currently `Patch 0.14`), but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
+
+If you find any problems or noticing some incompatibilities with Wolfpack's builtin Enigma, please do report it as an [issue](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/issues/)!
