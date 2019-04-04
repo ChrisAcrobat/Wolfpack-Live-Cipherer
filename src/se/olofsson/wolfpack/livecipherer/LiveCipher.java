@@ -54,10 +54,8 @@ public class LiveCipher extends JFrame
                         {
                             if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                                 try{
-                                    Desktop.getDesktop().browse(new java.net.URI("https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/releases/latest/"));
-                                }catch(IOException e){
-                                    e.printStackTrace();
-                                }catch(URISyntaxException e){
+                                    Desktop.getDesktop().browse(new java.net.URI("https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/"));
+                                }catch(Exception e){
                                     e.printStackTrace();
                                 }
                             }
@@ -82,9 +80,7 @@ public class LiveCipher extends JFrame
                             if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                                 try{
                                     Desktop.getDesktop().browse(new java.net.URI("http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html"));
-                                }catch(IOException e){
-                                    e.printStackTrace();
-                                }catch(URISyntaxException e){
+                                }catch(Exception e){
                                     e.printStackTrace();
                                 }
                             }
@@ -117,7 +113,7 @@ public class LiveCipher extends JFrame
         setVisible(true);
 
         // Add event handlers
-        Toolkit.getDefaultToolkit().addAWTEventListener(e -> {mouseEvent(e);}, AWTEvent.MOUSE_EVENT_MASK);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this::mouseEvent, AWTEvent.MOUSE_EVENT_MASK);
     }
 
     private void primeWheels(Roller[] rollerList){
