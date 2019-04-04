@@ -1,8 +1,12 @@
 package se.olofsson.wolfpack.livecipherer;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -21,7 +25,34 @@ public class UpdateChecker extends Thread implements Runnable
     public void run(){
         String latestVersion = getLatestVersion();
         if(CURRENT_RELEASE != latestVersion){
-            System.out.println("Update available: " + latestVersion);
+            // Add link to update
+            JMenu link = new JMenu("New update is available!");
+            link.setForeground(new Color(0x28, 0xA7, 0x45));
+            link.addMouseListener(new MouseListener(){
+                @Override
+                public void mouseClicked(MouseEvent mouseEvent)
+                {
+                    if(SwingUtilities.isLeftMouseButton(mouseEvent))
+                    {
+                        if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                            try{
+                                Desktop.getDesktop().browse(new java.net.URI(LATEST_RELEASE_URL));
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }catch(URISyntaxException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                @Override public void mousePressed(MouseEvent e){}
+                @Override public void mouseReleased(MouseEvent e){}
+                @Override public void mouseEntered(MouseEvent e){}
+                @Override public void mouseExited(MouseEvent e){}
+            });
+            JMENU_BAR.add(Box.createHorizontalGlue());
+            JMENU_BAR.add(link);
+            JMENU_BAR.setVisible(true);
         }
     }
 
