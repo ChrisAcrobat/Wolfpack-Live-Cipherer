@@ -42,7 +42,7 @@
               <enabled value="true"/>
               <text value="Use private key"/>
               <toolTipText value="Use first three characters as new private key."/>
-              <visible value="false"/>
+              <visible value="true"/>
             </properties>
           </component>
         </children>
