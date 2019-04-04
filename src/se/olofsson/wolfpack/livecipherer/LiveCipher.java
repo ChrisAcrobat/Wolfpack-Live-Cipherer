@@ -1,5 +1,7 @@
 package se.olofsson.wolfpack.livecipherer;
 
+import com.sun.deploy.util.UpdateCheck;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -96,6 +98,9 @@ public class LiveCipher extends JFrame
                 jMenuBar.add(submarineIcon);
             }
         }
+
+        // Check for new release.
+        new UpdateChecker(jMenuBar).start();
 
         // Initiate rollers
         Roller roller3 = new Roller(spnRollerLeft, null, 3);
