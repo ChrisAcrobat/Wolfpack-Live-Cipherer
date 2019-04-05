@@ -1,8 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Wolfpack-Live-Cipherer:jar">
-    <output-path>bin/artifacts/Wolfpack_Live_Cipherer_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="Wolfpack-Live-Cipherer:jar">
+    <output-path>out/artifacts/Wolfpack_Live_Cipherer_jar</output-path>
     <root id="archive" name="Wolfpack-Live-Cipherer.jar">
       <element id="module-output" name="Wolfpack-Live-Cipherer" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>
