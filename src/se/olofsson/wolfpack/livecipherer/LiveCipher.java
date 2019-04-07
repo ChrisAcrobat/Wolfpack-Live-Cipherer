@@ -18,6 +18,7 @@ import java.util.HashMap;
 public class LiveCipher extends JFrame
 {
     private final int ABOUT_BUTTON = 0;
+    private final String DEFAULT_TITLE = "Wolfpack: Live Cipherer";
 
     private JPanel pnlRoot;
     private JTextArea txtUpper;
@@ -36,7 +37,7 @@ public class LiveCipher extends JFrame
 
     public LiveCipher(){
         setContentPane(pnlRoot);
-        setTitle("Wolfpack: Live Cipherer");
+        setTitle(DEFAULT_TITLE);
         setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("submarine-icon.png")).getImage());
 
         // Add menu-bar
@@ -136,6 +137,7 @@ public class LiveCipher extends JFrame
             if(SwingUtilities.isRightMouseButton(mouseEvent) && mouseEvent.isPopupTrigger())
             {
                 jMenuBar.setVisible(!jMenuBar.isVisible());
+                setTitle(DEFAULT_TITLE + (jMenuBar.isVisible() ? " (" + Main.CURRENT_VERSION + ")" : ""));
             }
         }
     }
