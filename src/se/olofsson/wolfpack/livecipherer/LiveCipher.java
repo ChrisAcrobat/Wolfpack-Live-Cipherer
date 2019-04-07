@@ -1,15 +1,9 @@
 package se.olofsson.wolfpack.livecipherer;
 
-import com.sun.deploy.util.UpdateCheck;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created on 2016-06-05.
@@ -17,7 +11,6 @@ import java.util.HashMap;
  */
 public class LiveCipher extends JFrame
 {
-    private final int ABOUT_BUTTON = 0;
     private final String DEFAULT_TITLE = "Wolfpack: Live Cipherer";
 
     private JPanel pnlRoot;
@@ -28,12 +21,6 @@ public class LiveCipher extends JFrame
     private JSpinner spnRollerRight;
     private JCheckBox cbxPrivateKey;
     private JMenuBar jMenuBar;
-
-    private int leftRoller = 0;
-    private int middleRoller = 0;
-    private int rightRoller = 0;
-
-    private boolean changingRoller = false;
 
     public LiveCipher(){
         setContentPane(pnlRoot);
