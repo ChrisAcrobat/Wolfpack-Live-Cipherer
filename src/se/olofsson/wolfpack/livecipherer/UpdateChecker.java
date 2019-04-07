@@ -12,7 +12,7 @@ import java.net.URLConnection;
 
 public class UpdateChecker extends Thread implements Runnable
 {
-    final private String CURRENT_RELEASE = "v0.2";
+    final private String CURRENT_RELEASE = "v0.2.1";
 
     final private JMenuBar JMENU_BAR;
     final private String LATEST_RELEASE_URL = "https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/releases/latest/";
@@ -24,7 +24,7 @@ public class UpdateChecker extends Thread implements Runnable
     @Override
     public void run(){
         String latestVersion = getLatestVersion();
-        if(CURRENT_RELEASE != latestVersion){
+        if(!CURRENT_RELEASE.equals(latestVersion)){
             // Add link to update
             JMenu link = new JMenu("New update is available!");
             link.setForeground(new Color(0x28, 0xA7, 0x45));
