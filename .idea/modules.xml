@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Wolfpack-Live-Cipherer.iml" filepath="$PROJECT_DIR$/.idea/Wolfpack-Live-Cipherer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Wolfpack-LiveCipherer.iml" filepath="$PROJECT_DIR$/.idea/Wolfpack-LiveCipherer.iml" />
     </modules>
   </component>
 </project>
