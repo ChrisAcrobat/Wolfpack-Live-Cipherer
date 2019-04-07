@@ -84,7 +84,7 @@ public class LiveCipher extends JFrame
         }
 
         // Check for new release.
-        new UpdateChecker(jMenuBar).start();
+        new UpdateChecker(this).start();
 
         // Initiate rollers
         Roller roller3 = new Roller(spnRollerLeft, null, 3);
@@ -121,11 +121,20 @@ public class LiveCipher extends JFrame
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            if(SwingUtilities.isRightMouseButton(mouseEvent) && mouseEvent.isPopupTrigger())
-            {
-                jMenuBar.setVisible(!jMenuBar.isVisible());
-                setTitle(DEFAULT_TITLE + (jMenuBar.isVisible() ? " (" + Main.CURRENT_VERSION + ")" : ""));
+            if(SwingUtilities.isRightMouseButton(mouseEvent) && mouseEvent.isPopupTrigger()){
+                toggleMenuBar();
             }
         }
+    }
+
+    private void toggleMenuBar(){
+        jMenuBar.setVisible(!jMenuBar.isVisible());
+        setTitle(DEFAULT_TITLE + (jMenuBar.isVisible() ? " (" + Main.CURRENT_VERSION + ")" : ""));
+    }
+
+    public void addLinkToNewRelease(JMenu jMenu){
+        jMenuBar.add(Box.createHorizontalGlue());
+        jMenuBar.add(jMenu);
+        toggleMenuBar();
     }
 }
