@@ -95,15 +95,7 @@ public class TextFormatter extends Thread implements Runnable
         isCipherWorking = true;
         SwingUtilities.invokeLater(() -> {
             int caretPosition = FROM.getCaretPosition();
-
-            String text = FROM.getText().toUpperCase();
-            FROM.setText(text);
-
-            if(text.length() < caretPosition)
-            {
-                caretPosition = text.length();
-            }
-            FROM.setCaretPosition(caretPosition);
+            String text = FROM.getText();
 
             TO.setText(cipherMessage(text));
             TO.setCaretPosition(caretPosition);

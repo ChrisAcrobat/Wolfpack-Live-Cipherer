@@ -3,6 +3,10 @@ package se.olofsson.wolfpack.livecipherer;
 import com.sun.deploy.util.UpdateCheck;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -107,6 +111,14 @@ public class LiveCipher extends JFrame
         primeWheels(rollerList);
         new TextFormatter(roller1, cbxPrivateKey, txtUpper, txtLower).start();
 
+        UppercaseDocumentFilter uppercaseDocumentFilter = new UppercaseDocumentFilter();
+
+        AbstractDocument txtUpperDocument = (AbstractDocument) txtUpper.getDocument();
+        txtUpperDocument.setDocumentFilter(uppercaseDocumentFilter);
+
+        AbstractDocument txtLowerDocument = (AbstractDocument) txtLower.getDocument();
+        txtLowerDocument.setDocumentFilter(uppercaseDocumentFilter);
+
         // Finalize frame
         pack();
         setLocationRelativeTo(null);
@@ -137,6 +149,19 @@ public class LiveCipher extends JFrame
             {
                 jMenuBar.setVisible(!jMenuBar.isVisible());
             }
+        }
+    }
+
+    private class UppercaseDocumentFilter extends DocumentFilter {
+
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offset, String text, AttributeSet attr) throws BadLocationException {
+            fb.insertString(offset, text.toUpperCase(), attr);
+        }
+
+        @Override
+        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+            fb.replace(offset, length, text.toUpperCase(), attrs);
         }
     }
 }
