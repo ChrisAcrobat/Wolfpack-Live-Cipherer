@@ -8,7 +8,7 @@ import javax.swing.*;
  */
 public class Main
 {
-    public static final String CURRENT_VERSION = "v0.2.1";
+    public static final String CURRENT_VERSION = "v0.3";
 
     public static void main(String[] args)
     {
