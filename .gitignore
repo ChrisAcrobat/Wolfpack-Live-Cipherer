@@ -3,6 +3,7 @@
 .idea/tasks.xml
 build/
 doc/
+out/
 
 # Created by https://www.gitignore.io/api/gradle
 # Edit at https://www.gitignore.io/?templates=gradle
