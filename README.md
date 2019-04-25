@@ -10,6 +10,23 @@ Now after three years of sleep and Wolfpack is released as early access on [Stea
 
 The Live Cipherer is now compatible with the current version of Wolfpack (currently `Patch 0.14`), but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
 
+### Build
+Add the following `configuration` to the `RunManager` at `/.idea/workspace.xml` to build this project. Compiled executables are placed in `/build/_dist_/`.
+```xml
+<configuration name="Main (build)" type="Application" factoryName="Application">
+	<option name="MAIN_CLASS_NAME" value="se.olofsson.wolfpack.livecipherer.Main" />
+	<module name="Wolfpack-LiveCipherer" />
+	<method v="2">
+		<option name="Gradle.BeforeRunTask" enabled="true" tasks="assemble" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+		<option name="Gradle.BeforeRunTask" enabled="true" tasks="updateManifest" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+		<option name="Make" enabled="true" />
+		<option name="Gradle.BeforeRunTask" enabled="true" tasks="createExe" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+		<option name="Gradle.BeforeRunTask" enabled="true" tasks="createDist" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+		<option name="Gradle.BeforeRunTask" enabled="true" tasks="moveExe" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+	</method>
+</configuration>
+```
+
 ## Interactions
 Discussions can be held in the [Steam](https://steamcommunity.com/app/490920/discussions/0/1837937637905826469/) or [SubSim](http://www.subsim.com/radioroom/showthread.php?t=226415) forum, but if you find a problem or noticing any incompatibilities with Wolfpack's builtin Enigma, please do report them [here](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/issues/) as an issue!
 
