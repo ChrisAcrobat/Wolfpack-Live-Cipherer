@@ -11,7 +11,7 @@ Now after three years of sleep and Wolfpack is released as early access on [Stea
 The Live Cipherer is now compatible with the current version of Wolfpack (currently `Patch 0.14`), but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
 
 ### Build
-Add the following `configuration` to the `RunManager` at `/.idea/workspace.xml` to build this project. Compiled executables are placed in `/build/_dist_/`.
+Place the project in a directory is called `Wolfpack-Live-Cipherer`. Add the following `configuration` to the `RunManager` at `/.idea/workspace.xml` to build this project. Compiled executables are placed in `/build/_dist_/`.
 ```xml
 <configuration name="Main (build)" type="Application" factoryName="Application">
 	<option name="MAIN_CLASS_NAME" value="se.olofsson.wolfpack.livecipherer.Main" />
