@@ -19,7 +19,8 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'se.olofsson.wolfpack.livecipherer.Main'
+                'Main-Class': 'se.olofsson.wolfpack.livecipherer.Main',
+                'LiveCipherer-Version': version
         )
     }
 }
@@ -42,4 +43,9 @@ task createDist(type: Zip){
 task moveExe(type: Copy) {
     from "$buildDir/launch4j/Wolfpack-LiveCipherer.unsigned.exe"
     into "$buildDir/_dist_"
+}
+
+task updateManifest(type: Copy) {
+    from "$buildDir/tmp/jar/MANIFEST.MF"
+    into "${projectDir}/src/main/META-INF/"
 }
