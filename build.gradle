@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.intellij:forms_rt:7.0.3'
 }
 
 jar {
@@ -24,6 +25,21 @@ jar {
 }
 
 launch4j {
+    outfile = "Wolfpack-LiveCipherer.unsigned.exe"
     mainClassName = 'se.olofsson.wolfpack.livecipherer.Main'
+    jar = "$buildDir/artifacts/Wolfpack-LiveCipherer/Wolfpack-LiveCipherer.jar"
     icon = "${projectDir}/src/main/resources/Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico"
+    dontWrapJar = false
+}
+
+task createDist(type: Zip){
+    archiveName="Wolfpack-LiveCipherer.zip"
+    destinationDir = file("build/_dist_")
+    from fileTree("$buildDir/artifacts/Wolfpack-LiveCipherer/Wolfpack-LiveCipherer.jar")
+    from fileTree("${projectDir}/src/main/resources/Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico")
+}
+
+task moveExe(type: Copy) {
+    from "$buildDir/launch4j/Wolfpack-LiveCipherer.unsigned.exe"
+    into "$buildDir/_dist_"
 }
