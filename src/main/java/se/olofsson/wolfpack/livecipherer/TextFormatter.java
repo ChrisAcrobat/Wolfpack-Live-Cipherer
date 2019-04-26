@@ -75,7 +75,7 @@ public class TextFormatter extends Thread implements Runnable
     public void run(){
         while(true){
             if(!isCipherWorking){
-                if(privateKeyIsActive != USE_PRIVATE_KEY.isSelected() || rollerState != RIGHT_ROLLER.getState() || !first.equals(FIRST.getText())){
+                if(!first.equals(FIRST.getText()) || privateKeyIsActive != USE_PRIVATE_KEY.isSelected() || !rollerState.equals(RIGHT_ROLLER.getState())){
                     cipher(FIRST, SECOND);
                 }else if(!second.equals(SECOND.getText())){
                     cipher(SECOND, FIRST);
@@ -131,7 +131,7 @@ public class TextFormatter extends Thread implements Runnable
                 }else{
                     cipherMessage += ' ';
                 }
-                boolean privateKeyIsValid = cipherMessage.replaceAll("[^A-Z]", "") == cipherMessage;
+                boolean privateKeyIsValid = cipherMessage.replaceAll("[^A-Z]", "").equals(cipherMessage);
                 boolean privateKeyIsLength = cipherMessage.length() == 3;
                 if(privateKeyIsActive && privateKeyIsValid && privateKeyIsLength){
                     RIGHT_ROLLER.setState(cipherMessage);
