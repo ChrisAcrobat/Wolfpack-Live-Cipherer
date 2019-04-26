@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'edu.sc.seis.launch4j' version '2.4.4'
+}
+
+version 'v0.3'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.intellij:forms_rt:7.0.3'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'se.olofsson.wolfpack.livecipherer.Main',
+                'LiveCipherer-Version': version
+        )
+    }
+}
+
+launch4j {
+    outfile = "Wolfpack-LiveCipherer.unsigned.exe"
+    mainClassName = 'se.olofsson.wolfpack.livecipherer.Main'
+    jar = "$buildDir/artifacts/Wolfpack-LiveCipherer/Wolfpack-LiveCipherer.jar"
+    icon = "${projectDir}/src/main/resources/Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico"
+    dontWrapJar = false
+}
+
+task createDist(type: Zip){
+    archiveName="Wolfpack-LiveCipherer.zip"
+    destinationDir = file("build/_dist_")
+    from fileTree("$buildDir/artifacts/Wolfpack-LiveCipherer/Wolfpack-LiveCipherer.jar")
+    from fileTree("${projectDir}/src/main/resources/Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico")
+}
+
+task moveExe(type: Copy) {
+    from "$buildDir/launch4j/Wolfpack-LiveCipherer.unsigned.exe"
+    into "$buildDir/_dist_"
+}
+
+task updateManifest(type: Copy) {
+    from "$buildDir/tmp/jar/MANIFEST.MF"
+    into "${projectDir}/src/main/META-INF/"
+}
