@@ -129,11 +129,7 @@ public class TextFormatter extends Thread implements Runnable
                     RIGHT_ROLLER.stepNext();
                     cipherMessage += cipherCharacter(character);
                 }else{
-                    if('0' <= character && character <= '9'){
-                        cipherMessage += character;
-                    }else{
-                        cipherMessage += ' ';
-                    }
+                    cipherMessage += ' ';
                 }
                 boolean privateKeyIsValid = cipherMessage.replaceAll("[^A-Z]", "") == cipherMessage;
                 boolean privateKeyIsLength = cipherMessage.length() == 3;
