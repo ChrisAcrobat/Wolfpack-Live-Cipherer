@@ -3,7 +3,7 @@ plugins {
     id 'edu.sc.seis.launch4j' version '2.4.4'
 }
 
-version 'v0.3'
+version 'v0.3.1'
 
 sourceCompatibility = 1.8
 

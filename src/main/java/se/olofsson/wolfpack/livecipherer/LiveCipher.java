@@ -7,13 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URI;
 
 /**
  * Created on 2016-06-05.
+ *
  * @author Christoffer Olofsson
  */
-public class LiveCipher extends JFrame
-{
+public class LiveCipher extends JFrame {
     private final String DEFAULT_TITLE = "Wolfpack: Live Cipherer";
 
     private JPanel pnlRoot;
@@ -25,62 +26,85 @@ public class LiveCipher extends JFrame
     private JCheckBox cbxPrivateKey;
     private JMenuBar jMenuBar;
 
-    public LiveCipher(){
+    public LiveCipher() {
         setContentPane(pnlRoot);
         setTitle(DEFAULT_TITLE);
         setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("submarine-icon.png")).getImage());
 
         // Add menu-bar
-        jMenuBar = new JMenuBar();{
+        jMenuBar = new JMenuBar();
+        {
             jMenuBar.setVisible(false);
             this.setJMenuBar(jMenuBar);
 
             // Add GitHub-button
-            JMenu gitHub = new JMenu("GitHub");{
-                gitHub.addMouseListener(new MouseListener(){
+            JMenu gitHub = new JMenu("GitHub");
+            {
+                gitHub.addMouseListener(new MouseListener() {
                     @Override
-                    public void mouseClicked(MouseEvent mouseEvent)
-                    {
-                        if(SwingUtilities.isLeftMouseButton(mouseEvent))
-                        {
-                            if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                                try{
-                                    Desktop.getDesktop().browse(new java.net.URI("https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/"));
-                                }catch(Exception e){
+                    public void mouseClicked(MouseEvent mouseEvent) {
+                        if (SwingUtilities.isLeftMouseButton(mouseEvent)) {
+                            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                                try {
+                                    Desktop.getDesktop().browse(new URI("https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/"));
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
                     }
-                    @Override public void mousePressed(MouseEvent e){}
-                    @Override public void mouseReleased(MouseEvent e){}
-                    @Override public void mouseEntered(MouseEvent e){}
-                    @Override public void mouseExited(MouseEvent e){}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
                 });
                 jMenuBar.add(gitHub);
             }
 
             // Add GitHub-button
-            JMenu submarineIcon = new JMenu("Submarine-icon by Elegantthemes");{
-                submarineIcon.addMouseListener(new MouseListener(){
+            JMenu submarineIcon = new JMenu("Submarine-icon by Elegantthemes");
+            {
+                submarineIcon.addMouseListener(new MouseListener() {
                     @Override
-                    public void mouseClicked(MouseEvent mouseEvent)
-                    {
-                        if(SwingUtilities.isLeftMouseButton(mouseEvent))
-                        {
-                            if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                                try{
-                                    Desktop.getDesktop().browse(new java.net.URI("http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html"));
-                                }catch(Exception e){
+                    public void mouseClicked(MouseEvent mouseEvent) {
+                        if (SwingUtilities.isLeftMouseButton(mouseEvent)) {
+                            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                                try {
+                                    Desktop.getDesktop().browse(new URI("http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html"));
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
                     }
-                    @Override public void mousePressed(MouseEvent e){}
-                    @Override public void mouseReleased(MouseEvent e){}
-                    @Override public void mouseEntered(MouseEvent e){}
-                    @Override public void mouseExited(MouseEvent e){}
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
                 });
                 jMenuBar.add(submarineIcon);
             }
@@ -107,35 +131,34 @@ public class LiveCipher extends JFrame
         Toolkit.getDefaultToolkit().addAWTEventListener(this::mouseEvent, AWTEvent.MOUSE_EVENT_MASK);
     }
 
-    private void primeWheels(Roller[] rollerList){
+    private void primeWheels(Roller[] rollerList) {
         int[] primeList = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397};
-        for(int index = 0; index < primeList.length; index++){
-            rollerList[index%3].addPrime(primeList[index]);
+        for (int index = 0; index < primeList.length; index++) {
+            rollerList[index % 3].addPrime(primeList[index]);
         }
-        for(Roller roller : rollerList){
-            if(!roller.validate()){
+        for (Roller roller : rollerList) {
+            if (!roller.validate()) {
                 System.err.println(roller + ": NOT VALID!");
             }
         }
     }
 
-    private void mouseEvent(AWTEvent event){
-        if(event instanceof MouseEvent)
-        {
+    private void mouseEvent(AWTEvent event) {
+        if (event instanceof MouseEvent) {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            if(SwingUtilities.isRightMouseButton(mouseEvent) && mouseEvent.isPopupTrigger()){
+            if (SwingUtilities.isRightMouseButton(mouseEvent) && mouseEvent.isPopupTrigger()) {
                 toggleMenuBar();
             }
         }
     }
 
-    private void toggleMenuBar(){
+    private void toggleMenuBar() {
         jMenuBar.setVisible(!jMenuBar.isVisible());
         setTitle(DEFAULT_TITLE + (jMenuBar.isVisible() ? " (" + Main.CURRENT_VERSION + ")" : ""));
     }
 
-    public void addLinkToNewRelease(JMenu jMenu){
+    public void addLinkToNewRelease(JMenu jMenu) {
         jMenuBar.add(Box.createHorizontalGlue());
         jMenuBar.add(jMenu);
         toggleMenuBar();
@@ -219,4 +242,5 @@ public class LiveCipher extends JFrame
     public JComponent $$$getRootComponent$$$() {
         return pnlRoot;
     }
+
 }
