@@ -95,17 +95,7 @@ public class TextFormatter extends Thread implements Runnable
         isCipherWorking = true;
         SwingUtilities.invokeLater(() -> {
             int caretPosition = FROM.getCaretPosition();
-
-            String text = FROM.getText().toUpperCase();
-            FROM.setText(text);
-
-            if(text.length() < caretPosition)
-            {
-                caretPosition = text.length();
-            }
-            FROM.setCaretPosition(caretPosition);
-
-            TO.setText(cipherMessage(text));
+            TO.setText(cipherMessage(FROM.getText()));
             TO.setCaretPosition(caretPosition);
 
             first = FIRST.getText();
@@ -131,7 +121,7 @@ public class TextFormatter extends Thread implements Runnable
                 }else{
                     cipherMessage += ' ';
                 }
-                boolean privateKeyIsValid = cipherMessage.replaceAll("[^A-Z]", "").equals(cipherMessage);
+                boolean privateKeyIsValid = cipherMessage.replaceAll(LiveCipher.REGEX_UNSUPPORTED_CHARS, "").equals(cipherMessage);
                 boolean privateKeyIsLength = cipherMessage.length() == 3;
                 if(privateKeyIsActive && privateKeyIsValid && privateKeyIsLength){
                     RIGHT_ROLLER.setState(cipherMessage);
