@@ -13,7 +13,7 @@ The Live Cipherer is now compatible with the current version of Wolfpack (curren
 ### Build
 Place the project in a directory is called `Wolfpack-Live-Cipherer`. In order to build this project add the following XML-`configuration` to the `RunManager` at `/.idea/workspace.xml`, then [invalidate caches and restart](https://www.jetbrains.com/help/webstorm/cleaning-system-cache.html). Compiled executables are placed in `/build/_dist_/`.
 ```xml
-<configuration name="Main (build)" type="Application" factoryName="Application">
+<configuration name="Build" type="Application" factoryName="Application">
 	<option name="MAIN_CLASS_NAME" value="se.olofsson.wolfpack.livecipherer.Main" />
 	<module name="Wolfpack-LiveCipherer" />
 	<method v="2">
