@@ -31,6 +31,7 @@ launch4j {
     jar = "$buildDir/artifacts/Wolfpack-LiveCipherer/Wolfpack-LiveCipherer.jar"
     icon = "${projectDir}/src/main/resources/Elegantthemes-Beautiful-Flat-One-Color-Submarine.ico"
     dontWrapJar = false
+    cmdLine = "lanuch4j-exe"
 }
 
 task createDist(type: Zip){
