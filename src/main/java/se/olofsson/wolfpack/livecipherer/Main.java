@@ -1,7 +1,9 @@
 package se.olofsson.wolfpack.livecipherer;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -22,6 +24,7 @@ public class Main
         }
 
         new LiveCipher().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        sendUsageAnalytics(String.join("\n", args));
     }
 
     private static String getCurrentVersion(){
@@ -40,5 +43,17 @@ public class Main
             currentVersion = attr.getValue("LiveCipherer-Version");
         }catch(Exception e){}
         return currentVersion;
+    }
+
+    private static void sendUsageAnalytics(String args){
+        String baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdDQVz-MDe3pVMWO1VIt_s1c-dibNGUiNra-IpN9FeorLge3A/formResponse?usp=pp_url";
+        try{
+            String encodedVersion = URLEncoder.encode(CURRENT_VERSION == null ? "null" : CURRENT_VERSION, "UTF-8");
+            String encodedArgs = URLEncoder.encode(args, "UTF-8");
+            String fullUrl = baseURL + "&entry.762130873=" + encodedVersion + "&entry.175483917=" + encodedArgs + "&submit=Submit";
+            new URL(fullUrl).openConnection().getInputStream();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
