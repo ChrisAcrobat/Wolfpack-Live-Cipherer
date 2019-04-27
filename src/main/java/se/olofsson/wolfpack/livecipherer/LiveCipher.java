@@ -4,6 +4,10 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,6 +29,7 @@ public class LiveCipher extends JFrame {
     private JSpinner spnRollerRight;
     private JCheckBox cbxPrivateKey;
     private JMenuBar jMenuBar;
+    public static final String REGEX_UNSUPPORTED_CHARS = "[^A-Z]";
 
     public LiveCipher() {
         setContentPane(pnlRoot);
@@ -121,6 +126,26 @@ public class LiveCipher extends JFrame {
         Roller[] rollerList = new Roller[]{roller1, roller2, roller3};
         primeWheels(rollerList);
         new TextFormatter(roller1, cbxPrivateKey, txtUpper, txtLower).start();
+
+        class UppercaseDocumentFilter extends DocumentFilter {
+            @Override
+            public void insertString(FilterBypass fb, int offset, String text, AttributeSet attr) throws BadLocationException {
+                fb.insertString(offset, text.toUpperCase().replaceAll(REGEX_UNSUPPORTED_CHARS, " "), attr);
+            }
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                fb.replace(offset, length, text.toUpperCase().replaceAll(REGEX_UNSUPPORTED_CHARS, " "), attrs);
+            }
+        }
+
+        UppercaseDocumentFilter uppercaseDocumentFilter = new UppercaseDocumentFilter();
+
+        AbstractDocument txtUpperDocument = (AbstractDocument) txtUpper.getDocument();
+        txtUpperDocument.setDocumentFilter(uppercaseDocumentFilter);
+
+        AbstractDocument txtLowerDocument = (AbstractDocument) txtLower.getDocument();
+        txtLowerDocument.setDocumentFilter(uppercaseDocumentFilter);
 
         // Finalize frame
         pack();

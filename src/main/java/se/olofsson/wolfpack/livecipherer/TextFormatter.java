@@ -14,7 +14,6 @@ public class TextFormatter extends Thread implements Runnable
     private final JCheckBox USE_PRIVATE_KEY;
     private final JTextArea FIRST;
     private final JTextArea SECOND;
-    private final String REGEX_UNSUPPORTED_CHARS = "[^A-Z]";
 
     private String first;
     private String second;
@@ -96,17 +95,7 @@ public class TextFormatter extends Thread implements Runnable
         isCipherWorking = true;
         SwingUtilities.invokeLater(() -> {
             int caretPosition = FROM.getCaretPosition();
-
-            String text = FROM.getText().toUpperCase().replaceAll(REGEX_UNSUPPORTED_CHARS, " ");
-            FROM.setText(text);
-
-            if(text.length() < caretPosition)
-            {
-                caretPosition = text.length();
-            }
-            FROM.setCaretPosition(caretPosition);
-
-            TO.setText(cipherMessage(text));
+            TO.setText(cipherMessage(FROM.getText()));
             TO.setCaretPosition(caretPosition);
 
             first = FIRST.getText();
@@ -132,7 +121,7 @@ public class TextFormatter extends Thread implements Runnable
                 }else{
                     cipherMessage += ' ';
                 }
-                boolean privateKeyIsValid = cipherMessage.replaceAll(REGEX_UNSUPPORTED_CHARS, "").equals(cipherMessage);
+                boolean privateKeyIsValid = cipherMessage.replaceAll(LiveCipher.REGEX_UNSUPPORTED_CHARS, "").equals(cipherMessage);
                 boolean privateKeyIsLength = cipherMessage.length() == 3;
                 if(privateKeyIsActive && privateKeyIsValid && privateKeyIsLength){
                     RIGHT_ROLLER.setState(cipherMessage);
