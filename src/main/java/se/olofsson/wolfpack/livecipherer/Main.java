@@ -28,7 +28,7 @@ public class Main
     }
 
     private static String getCurrentVersion(){
-        // Source (modified): https://stackoverflow.com/a/1273432
+        // Source by ZZ Coder (modified): https://stackoverflow.com/a/1273432
         String currentVersion = null;
         try{
             Class clazz = Main.class;
