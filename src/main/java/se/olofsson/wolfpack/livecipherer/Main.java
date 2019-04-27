@@ -52,8 +52,6 @@ public class Main
             String encodedArgs = URLEncoder.encode(args, "UTF-8");
             String fullUrl = baseURL + "&entry.762130873=" + encodedVersion + "&entry.175483917=" + encodedArgs + "&submit=Submit";
             new URL(fullUrl).openConnection().getInputStream();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        }catch(IOException e){}
     }
 }
