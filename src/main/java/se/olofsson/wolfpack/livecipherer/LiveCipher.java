@@ -29,7 +29,8 @@ public class LiveCipher extends JFrame {
     private JSpinner spnRollerRight;
     private JCheckBox cbxPrivateKey;
     private JMenuBar jMenuBar;
-    public static final String REGEX_UNSUPPORTED_CHARS = "[^A-Z]";
+    public static final String REGEX_UNSUPPORTED_CHARS = "[^A-Z0-9]";
+    public static final String REGEX_UNSUPPORTED_CIPHER_CHARS = "[^A-Z]";
 
     public LiveCipher() {
         setContentPane(pnlRoot);
@@ -267,5 +268,4 @@ public class LiveCipher extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return pnlRoot;
     }
-
 }
