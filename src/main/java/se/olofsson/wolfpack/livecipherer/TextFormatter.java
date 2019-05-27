@@ -118,10 +118,11 @@ public class TextFormatter extends Thread implements Runnable
                 if('A' <= character && character <= 'Z'){
                     RIGHT_ROLLER.stepNext();
                     cipherMessage += cipherCharacter(character);
-                }else{
-                    cipherMessage += ' ';
                 }
-                boolean privateKeyIsValid = cipherMessage.replaceAll(LiveCipher.REGEX_UNSUPPORTED_CHARS, "").equals(cipherMessage);
+                else{
+                    cipherMessage += character.toString().replaceAll(LiveCipher.REGEX_UNSUPPORTED_CHARS, " ");
+                }
+                boolean privateKeyIsValid = cipherMessage.replaceAll(LiveCipher.REGEX_UNSUPPORTED_CIPHER_CHARS, "").equals(cipherMessage);
                 boolean privateKeyIsLength = cipherMessage.length() == 3;
                 if(privateKeyIsActive && privateKeyIsValid && privateKeyIsLength){
                     RIGHT_ROLLER.setState(cipherMessage);
