@@ -1,0 +1,21 @@
+<script>
+	var liveCipherer = undefined;
+	function popup(){
+		if(liveCipherer === undefined){
+			liveCipherer = window.open("LiveCipherer.html", "_blank", "menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=yes,top=500,left=500,width=400,height=400");
+			if(!liveCipherer || liveCipherer.closed || typeof liveCipherer.closed=='undefined'){ 
+				liveCipherer = undefined;
+			}else{
+				window.close();
+			}
+		}
+	}
+</script>
+<style>
+	a{
+		cursor: pointer;
+	}
+</style>
+<a onclick="popup()">
+	Click here to initiate Live Cipherer.
+</a>
