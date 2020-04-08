@@ -1,31 +1,7 @@
 # Wolfpack: Live Cipherer
-Live Cipherer is a fan-made tool written in [Java](https://www.java.com/download/) to use with the game [Wolfpack](http://wolfpackgame.com/) for crypting and decrypting messages faster.
+Live Cipherer is a fan-made tool written in HTML ([link](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/releases/latest/)) to use with the game [Wolfpack](http://wolfpackgame.com/) for crypting and decrypting messages faster.
 
-## Download
-Go [here](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/releases/latest/) to get the latest release of Live Cipherer and download `Wolfpack-LiveCipherer.zip`.
-There is also an unsigned binary created with Launch4j called `Wolfpack-LiveCipherer.unsigned.exe`, use it at your own risk.
-
-## Project is ~~on hold.~~ _Alive!_
-Now after three years of sleep and Wolfpack is released as early access on [Steam](https://store.steampowered.com/app/490920/), I have now returned to this project.
-
-The Live Cipherer is now compatible with the current version of Wolfpack (currently `Patch 0.14`), but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
-
-### Build
-Place the project in a directory is called `Wolfpack-Live-Cipherer`. In order to build this project add the following XML-`configuration` to the `RunManager` at `/.idea/workspace.xml`, then [invalidate caches and restart](https://www.jetbrains.com/help/webstorm/cleaning-system-cache.html). Compiled executables are placed in `/build/_dist_/`.
-```xml
-<configuration name="Build" type="Application" factoryName="Application">
-	<option name="MAIN_CLASS_NAME" value="se.olofsson.wolfpack.livecipherer.Main" />
-	<module name="Wolfpack-LiveCipherer" />
-	<method v="2">
-		<option name="Gradle.BeforeRunTask" enabled="true" tasks="assemble" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-		<option name="Gradle.BeforeRunTask" enabled="true" tasks="updateManifest" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-		<option name="Make" enabled="true" />
-		<option name="Gradle.BeforeRunTask" enabled="true" tasks="createExe" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-		<option name="Gradle.BeforeRunTask" enabled="true" tasks="createDist" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-		<option name="Gradle.BeforeRunTask" enabled="true" tasks="moveExe" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-	</method>
-</configuration>
-```
+Current version of Live Cipherer is compatible with Wolfpack `Patch 0.22`, but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
 
 ## Interactions
 Discussions can be held in the [Steam](https://steamcommunity.com/app/490920/discussions/0/1837937637905826469/) or [SubSim](http://www.subsim.com/radioroom/showthread.php?t=226415) forum, but if you find a problem or noticing any incompatibilities with Wolfpack's builtin Enigma, please do report them [here](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/issues/) as an issue!
@@ -33,4 +9,4 @@ Discussions can be held in the [Steam](https://steamcommunity.com/app/490920/dis
 # Special thanks
 [Submarine Icon](http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html) made by [Elegantthemes](http://www.iconarchive.com/artist/elegantthemes.html).
 
-![Submarine icon by Elegantthemes](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/res/submarine-icon.png?raw=true "Submarine Icon by Elegantthemes")
+![Submarine icon by Elegantthemes](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/icon/submarine-icon.png?raw=true "Submarine Icon by Elegantthemes")
