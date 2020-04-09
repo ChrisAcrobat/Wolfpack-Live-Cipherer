@@ -1,5 +1,5 @@
 # Wolfpack: Live Cipherer
-Live Cipherer is a fan-made tool written in HTML ([link](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/releases/latest/)) to use with the game [Wolfpack](http://wolfpackgame.com/) for crypting and decrypting messages faster.
+Live Cipherer is a fan-made tool written in HTML ([link](http://chrisacrobat.github.io/Wolfpack-Live-Cipherer/)) to use with the game [Wolfpack](http://wolfpackgame.com/) for crypting and decrypting messages faster.
 
 Current version of Live Cipherer is compatible with Wolfpack `Patch 0.22`, but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
 
