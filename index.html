@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="frontpage">
 	<head>
 		<meta charset="UTF-8">
 		<title>Live Cipherer</title>
@@ -7,6 +7,37 @@
 		<meta content="yes" name="mobile-web-app-capable">
 		<link href="icon/Elegantthemes-Beautiful-Flat-One-Color-Submarine.png" rel="icon" sizes="128x128">
 		<link href="Stylesheet-Global.css" rel="stylesheet">
+		<style>
+			html, body{
+				background: lightblue;
+				cursor: pointer;
+			}
+			:hover div{
+				background: #4F5D73;
+			}
+			div{
+				position: fixed;
+				top: 50%;
+				left: 50%;
+
+				display: flex;
+				align-items: center;
+				font-size: xx-large;
+				border-color: #4F5D73;
+				border-radius: 128px;
+				border-style: solid;
+
+				transform: translate(-50%, -50%);
+			}
+			img{
+				margin: -1px;
+			}
+			span{
+				font-weight: bold;
+				white-space: nowrap;
+				margin: 0.5em;
+			}
+		</style>
 		<script>
 			var liveCipherer = undefined;
 			function closeWindow(){
