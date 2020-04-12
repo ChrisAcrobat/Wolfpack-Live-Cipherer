@@ -37,10 +37,14 @@
 				white-space: nowrap;
 				margin: 0.5em;
 			}
+			#link-to-github{
+				float: right;
+			}
 		</style>
 		<script>
 			'use strict'
 			var liveCipherer = undefined;
+			var linkToGithub = undefined;
 			function closeWindow(){
 				if(liveCipherer === undefined){
 					window.requestAnimationFrame(closeWindow);
@@ -50,8 +54,12 @@
 				}
 			}
 			closeWindow();
-			function popup(){
-				if(liveCipherer === undefined){
+			function load(){
+				document.body.onclick = popup;
+				linkToGithub = document.getElementById('link-to-github');
+			}
+			function popup(mouseEvent){
+				if(liveCipherer === undefined && mouseEvent.srcElement !== linkToGithub && mouseEvent.srcElement.parentElement !== linkToGithub){
 					let width = 410;
 					let height = 240;
 					let top = (window.innerHeight)/2;
@@ -67,10 +75,11 @@
 			}
 		</script>
 	</head>
-	<body onclick="popup()">
+	<body onload="load()">
 		<div>
 			<span>Click to open a Live Cipherer</span>
 			<img src="icon/Elegantthemes-Beautiful-Flat-One-Color-Submarine.png">
 		</div>
+		<a id="link-to-github" href="https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
 	</body>
 </html>
