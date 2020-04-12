@@ -1,7 +1,11 @@
 'use strict'
+const REGEX_UNSUPPORTED_CHARS = /[^A-Z0-9]/;
+const REGEX_UNSUPPORTED_CIPHER_CHARS = /[^A-Z]/;
+
 var inputLeftRoller = undefined;
 var inputMiddleRoller = undefined;
 var inputRightRoller = undefined;
+var inputPrivateKey = undefined;
 var upperInput = undefined;
 var lowerInput = undefined;
 var RIGHT_ROLLER = undefined;
@@ -13,12 +17,18 @@ class Roller{
 		this.offset = offset;
 		this.primeList = [];
 
-		this.getCipheredCharIndex = function(){
+		this.getCipheredCharIndex = ()=>{
 			let currentCharacter = input.value;
 			let charIndex = currentCharacter.charCodeAt() - 'A'.charCodeAt();
 			let prime = this.primeList[(charIndex + this.offset) % this.primeList.length];
 			let semiPrime = this.nextRoller == null ? 1 : this.nextRoller.getCipheredCharIndex();
 			return prime * semiPrime;
+		}
+		this.stepNext = ()=>{
+			// TODO: Step roller.
+		}
+		this.setState = ()=>{
+			// TODO: Set state.
 		}
 	}
 }
@@ -26,6 +36,7 @@ class Roller{
 function load(){
 	upperInput = document.getElementById('upper-input');
 	lowerInput = document.getElementById('lower-input');
+	inputPrivateKey = document.getElementById('use-private-key');
 	upperInput.oninput = callCipher;
 	lowerInput.oninput = callCipher;
 	for(const element of document.getElementsByTagName('input')){
@@ -97,6 +108,7 @@ function cipher(from=upperInput, too=lowerInput){
 }
 function cipherMessage(message){
 	let cipheredMessage = '';
+	let state = undefined; // TODO: Get ingoing state
 	message.split('\n').forEach(subMessage => {
 		if(cipheredMessage !== ''){
 			cipheredMessage += '\n';
@@ -104,11 +116,18 @@ function cipherMessage(message){
 		for(let index = 0; index < subMessage.length; index++){
 			const character = subMessage[index];
 			if(/[A-Z]/.test(character)){
+				RIGHT_ROLLER.stepNext();
 				cipheredMessage += cipherCharacter(character);
 			}else{
-				cipheredMessage += character; // TODO: Fix later.
+				cipheredMessage += character.replace(REGEX_UNSUPPORTED_CHARS, ' ');
+			}
+			let privateKeyIsValid = cipheredMessage.replace(REGEX_UNSUPPORTED_CIPHER_CHARS, '') === cipheredMessage;
+			let privateKeyIsLength = cipheredMessage.length == 3;
+			if(inputPrivateKey.checked && privateKeyIsValid && privateKeyIsLength){
+				RIGHT_ROLLER.setState(cipheredMessage);
 			}
 		}
+		RIGHT_ROLLER.setState(state);
 	});
 	return cipheredMessage;
 }
