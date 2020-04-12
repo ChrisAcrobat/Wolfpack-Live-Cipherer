@@ -10,11 +10,16 @@
 #wheel-row, #wheels, #wheels>span{
 	display: inline-flex;
 }
+#wheels input[type=button]{
+	margin: 0;
+}
 #use-private-key{
 	margin-left: 0;
 }
 #wheels>span>input{
 	width: 100%;
+}
+#wheels>span{
 	margin-right: var(--space);
 }
 #wheel-row label{
