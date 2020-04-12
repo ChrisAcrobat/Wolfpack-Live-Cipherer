@@ -59,7 +59,7 @@ function load(){
 		switch(element.type){
 			case 'text':
 				element.oninput = setWeel;
-				element.onwheel = onScroll;
+				element.onmousewheel = onScroll;
 				element.dataset.previousValue = element.value;
 				switch(element.parentElement.id){
 					case 'first-wheel':  inputLeftRoller = element; break;
@@ -68,7 +68,7 @@ function load(){
 				}
 				break;
 			case 'button':
-				element.onclick = element.value === '▲' ? wheelUp : wheelDown;
+				element.onclick = wheelStepButton;
 		}
 	}
 	let roller_3 = new Roller(inputLeftRoller, null, 3);
@@ -101,20 +101,24 @@ function setWeel(inputEvent){
 		invalid = true;
 	}
 	if(invalid){
-		inputEvent.target.value = inputEvent.target.dataset.previousValue
+		inputEvent.target.value = inputEvent.target.dataset.previousValue;
 	}
 }
 function onScroll(inputEvent){
 	stepWheel(inputEvent.target, 0 < inputEvent.deltaY);
 }
-function wheelUp(mouseEvent){
-	stepWheel(mouseEvent.target);
-}
-function wheelDown(mouseEvent){
-	stepWheel(mouseEvent.target, false);
+function wheelStepButton(mouseEvent){
+	for(let index = 0; index < mouseEvent.target.parentElement.children.length; index++){
+		const input = mouseEvent.target.parentElement.children[index];
+		if(input.type === 'text'){
+			stepWheel(input, mouseEvent.target.value !== '▲');
+			break;
+		}
+	}
 }
 function stepWheel(input, up=true){
 	rollerList[input.dataset.rollerListIndex].step(up);
+	cipher();
 }
 function callCipher(inputEvent){
 	cipher(inputEvent.target, inputEvent.target === upperInput ? lowerInput : upperInput);
