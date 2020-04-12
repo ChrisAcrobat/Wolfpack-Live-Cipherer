@@ -41,7 +41,7 @@ function load(){
 				}
 				break;
 			case 'button':
-				element.onclick = element.value === '+' ? wheelUp : wheelDown;
+				element.onclick = element.value === '▲' ? wheelUp : wheelDown;
 		}
 	}
 	let roller3 = new Roller(inputLeftRoller, null, 3);
@@ -62,6 +62,7 @@ function onInput(inputEvent){
 		if(input.match(/[A-Z]/i)){
 			inputEvent.target.value = input;
 			inputEvent.target.dataset.previousValue = input;
+			cipher();
 		}else{
 			invalid = true;
 		}
@@ -81,14 +82,14 @@ function wheelUp(mouseEvent){
 function wheelDown(mouseEvent){
 	stepWheel(mouseEvent.target, false);
 }
-function stepWheel(wheel, up=true){
-	console.log(wheel);
+function stepWheel(input, up=true){
+	console.log(input);
 	console.log(up);
 }
 function callCipher(inputEvent){
 	cipher(inputEvent.target, inputEvent.target === upperInput ? lowerInput : upperInput);
 }
-function cipher(from, too){
+function cipher(from=upperInput, too=lowerInput){
 	// TODO: Get caretPosition
 	from.value = from.value.toUpperCase();
 	too.value = cipherMessage(from.value);
