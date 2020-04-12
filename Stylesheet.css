@@ -10,8 +10,12 @@
 #wheel-row, #wheels, #wheels>span{
 	display: inline-flex;
 }
+#use-private-key{
+	margin-left: 0;
+}
 #wheels>span>input{
 	width: 100%;
+	margin-right: var(--space);
 }
 #wheel-row label{
 	white-space: nowrap;
