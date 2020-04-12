@@ -9,6 +9,7 @@ var inputPrivateKey = undefined;
 var upperInput = undefined;
 var lowerInput = undefined;
 var RIGHT_ROLLER = undefined;
+var rollerList = undefined;
 
 class Roller{
 	constructor(input, nextRoller, offset){
@@ -24,11 +25,25 @@ class Roller{
 			let semiPrime = this.nextRoller == null ? 1 : this.nextRoller.getCipheredCharIndex();
 			return prime * semiPrime;
 		}
-		this.stepNext = ()=>{
-			// TODO: Step roller.
+		this.step = (next=true)=>{
+			let nextValue = this.input.value.charCodeAt() + (next ? 1 : -1);
+			let pedningChar = String.fromCharCode(nextValue);
+			this.input.value = nextValue <= 'Z'.charCodeAt() ? pedningChar : 'A';
+			if(this.input.value === pedningChar){
+				this.input.value = 'A'.charCodeAt() <= nextValue ? pedningChar : 'Z';
+			}
+			if(this.input.value != pedningChar && this.nextRoller != null){
+				this.nextRoller.step(next);
+			}
 		}
-		this.setState = ()=>{
-			// TODO: Set state.
+		this.getState = ()=>{
+			return (this.nextRoller == null ? "" : this.nextRoller.getState()) + this.input.value;
+		}
+		this.setState = (state='')=>{
+			this.input.value = state[state.length-1];
+			if(this.nextRoller != null){
+				this.nextRoller.setState(state.substring(0, state.length-1));
+			}
 		}
 	}
 }
@@ -37,12 +52,13 @@ function load(){
 	upperInput = document.getElementById('upper-input');
 	lowerInput = document.getElementById('lower-input');
 	inputPrivateKey = document.getElementById('use-private-key');
+	inputPrivateKey.onchange = ()=>{cipher();};
 	upperInput.oninput = callCipher;
 	lowerInput.oninput = callCipher;
 	for(const element of document.getElementsByTagName('input')){
 		switch(element.type){
 			case 'text':
-				element.oninput = onInput;
+				element.oninput = setWeel;
 				element.onwheel = onScroll;
 				element.dataset.previousValue = element.value;
 				switch(element.parentElement.id){
@@ -55,18 +71,22 @@ function load(){
 				element.onclick = element.value === '▲' ? wheelUp : wheelDown;
 		}
 	}
-	let roller3 = new Roller(inputLeftRoller, null, 3);
-	let roller2 = new Roller(inputMiddleRoller, roller3, 2);
-	let roller1 = new Roller(inputRightRoller, roller2, 1);
-	RIGHT_ROLLER = roller1;
+	let roller_3 = new Roller(inputLeftRoller, null, 3);
+	let roller_2 = new Roller(inputMiddleRoller, roller_3, 2);
+	let roller_1 = new Roller(inputRightRoller, roller_2, 1);
+	RIGHT_ROLLER = roller_1;
 
-	let rollerList = [roller1, roller2, roller3];
+	inputLeftRoller.dataset.rollerListIndex = 2;
+	inputMiddleRoller.dataset.rollerListIndex = 1;
+	inputRightRoller.dataset.rollerListIndex = 0;
+
+	rollerList = [roller_1, roller_2, roller_3];
 	let predefinedPrimeList = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397];
 	for(let index = 0; index < predefinedPrimeList.length; index++) {
 		rollerList[index % 3].primeList.push(predefinedPrimeList[index]);
 	}
 }
-function onInput(inputEvent){
+function setWeel(inputEvent){
 	let invalid = false;
 	if(inputEvent.data){
 		let input = inputEvent.data.toUpperCase().substring(inputEvent.data.length-1, 1);
@@ -85,7 +105,7 @@ function onInput(inputEvent){
 	}
 }
 function onScroll(inputEvent){
-	stepWheel(inputEvent.target, 0<window.scrollY);
+	stepWheel(inputEvent.target, 0 < inputEvent.deltaY);
 }
 function wheelUp(mouseEvent){
 	stepWheel(mouseEvent.target);
@@ -94,8 +114,7 @@ function wheelDown(mouseEvent){
 	stepWheel(mouseEvent.target, false);
 }
 function stepWheel(input, up=true){
-	console.log(input);
-	console.log(up);
+	rollerList[input.dataset.rollerListIndex].step(up);
 }
 function callCipher(inputEvent){
 	cipher(inputEvent.target, inputEvent.target === upperInput ? lowerInput : upperInput);
@@ -108,7 +127,7 @@ function cipher(from=upperInput, too=lowerInput){
 }
 function cipherMessage(message){
 	let cipheredMessage = '';
-	let state = undefined; // TODO: Get ingoing state
+	let state = RIGHT_ROLLER.getState();
 	message.split('\n').forEach(subMessage => {
 		if(cipheredMessage !== ''){
 			cipheredMessage += '\n';
@@ -116,7 +135,7 @@ function cipherMessage(message){
 		for(let index = 0; index < subMessage.length; index++){
 			const character = subMessage[index];
 			if(/[A-Z]/.test(character)){
-				RIGHT_ROLLER.stepNext();
+				RIGHT_ROLLER.step(true);
 				cipheredMessage += cipherCharacter(character);
 			}else{
 				cipheredMessage += character.replace(REGEX_UNSUPPORTED_CHARS, ' ');
