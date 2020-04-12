@@ -12,12 +12,15 @@
 }
 #wheels input[type=button]{
 	margin: 0;
+	width: 2em;
 }
 #use-private-key{
 	margin-left: 0;
 }
 #wheels>span>input{
 	width: 100%;
+	text-align: center;
+	min-width: 1em;
 }
 #wheels>span{
 	margin-right: var(--space);
