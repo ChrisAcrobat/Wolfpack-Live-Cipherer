@@ -1,5 +1,10 @@
+:root {
+	--space: 5px;
+}
 #wrapper{
-	padding: 8px;
+	display: flex;
+	flex-flow: column;
+	padding: var(--space);
 	height: -webkit-fill-available;
 }
 #wheel-row, #wheels, #wheels>span{
@@ -7,4 +12,12 @@
 }
 #wheels>span>input{
 	width: 100%;
+}
+#wheel-row label{
+	white-space: nowrap;
+}
+textarea{
+	resize: none;
+	flex-grow: 1;
+	margin-top: var(--space);
 }
