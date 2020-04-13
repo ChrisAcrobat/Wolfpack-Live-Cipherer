@@ -1,0 +1,70 @@
+:root {
+	--space: 5px;
+}
+#wrapper{
+	display: flex;
+	flex-flow: column;
+	padding: var(--space);
+	height: -webkit-fill-available;
+}
+#wheel-row, #wheels, #wheels>span{
+	display: inline-flex;
+}
+#wheels input[type=button]{
+	margin: 0;
+	padding: 0;
+	width: 2em;
+}
+#use-private-key{
+	margin-left: 0;
+}
+#wheels>span>input{
+	width: 100%;
+	text-align: center;
+}
+#wheels>span{
+	margin-right: var(--space);
+}
+#wheel-row label{
+	white-space: nowrap;
+}
+textarea{
+	resize: none;
+	flex-grow: 1;
+	margin-top: var(--space);
+}
+
+.tooltip{
+	position: relative;
+	display: inline-flex;
+}
+.tooltip .tooltiptext{
+	visibility: hidden;
+	width: max-content;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	top: 100%;
+	right: 0%;
+	margin-left: -60px;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+.tooltip .tooltiptext::after{
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	right: 115px;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent #555 transparent;
+}
+.tooltip:hover .tooltiptext{
+	visibility: visible;
+	opacity: 1;
+}
