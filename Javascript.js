@@ -1,6 +1,6 @@
 'use strict'
-const REGEX_UNSUPPORTED_CHARS = /[^A-Z0-9]/;
-const REGEX_UNSUPPORTED_CIPHER_CHARS = /[^A-Z]/;
+const REGEX_UNSUPPORTED_CHARS = /[^A-Z0-9]/g;
+const REGEX_UNSUPPORTED_CIPHER_CHARS = /[^A-Z]/g;
 
 var inputLeftRoller = undefined;
 var inputMiddleRoller = undefined;
@@ -124,10 +124,11 @@ function callCipher(inputEvent){
 	cipher(inputEvent.target, inputEvent.target === upperInput ? lowerInput : upperInput);
 }
 function cipher(from=upperInput, too=lowerInput){
-	// TODO: Get caretPosition
-	from.value = from.value.toUpperCase();
+	let caretPosition = from.selectionStart
+	from.value = from.value.toUpperCase().replace(REGEX_UNSUPPORTED_CHARS, ' ');
 	too.value = cipherMessage(from.value);
-	// TODO: Set caretPosition
+	from.selectionStart = caretPosition;
+	from.selectionEnd = caretPosition;
 }
 function cipherMessage(message){
 	let cipheredMessage = '';
@@ -142,7 +143,7 @@ function cipherMessage(message){
 				RIGHT_ROLLER.step(true);
 				cipheredMessage += cipherCharacter(character);
 			}else{
-				cipheredMessage += character.replace(REGEX_UNSUPPORTED_CHARS, ' ');
+				cipheredMessage += character;
 			}
 			let privateKeyIsValid = cipheredMessage.replace(REGEX_UNSUPPORTED_CIPHER_CHARS, '') === cipheredMessage;
 			let privateKeyIsLength = cipheredMessage.length == 3;
