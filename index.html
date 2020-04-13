@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html id="frontpage">
+	<head>
+		<meta charset="UTF-8">
+		<title>Wolfpack: Live Cipherer</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="yes" name="mobile-web-app-capable">
+		<link href="icon/Elegantthemes-Beautiful-Flat-One-Color-Submarine.png" rel="icon" sizes="128x128">
+		<link href="Stylesheet-Global.css" rel="stylesheet">
+		<style>
+			html, body{
+				background: lightblue;
+				cursor: pointer;
+			}
+			:hover div{
+				background: #4F5D73;
+			}
+			div{
+				position: fixed;
+				top: 50%;
+				left: 50%;
+
+				display: flex;
+				align-items: center;
+				font-size: xx-large;
+				border-color: #4F5D73;
+				border-radius: 128px;
+				border-style: solid;
+
+				transform: translate(-50%, -50%);
+			}
+			.button-icon{
+				margin: -1px;
+			}
+			span{
+				font-weight: bold;
+				white-space: nowrap;
+				margin: 0.5em;
+			}
+			#link-to-github{
+				float: right;
+			}
+			#link-to-submarine{
+				position: absolute;
+				bottom: 4px;
+				width: inherit;
+				font-size: x-small;
+				color: black;
+				text-align: center;
+			}
+		</style>
+		<script>
+			'use strict'
+			var liveCipherer = undefined;
+			function closeWindow(){
+				if(liveCipherer === undefined){
+					window.requestAnimationFrame(closeWindow);
+				}else{
+					window.close();
+					document.getElementsByTagName('span')[0].innerHTML = ' You can now close this page ';
+				}
+			}
+			closeWindow();
+			function load(){
+				document.body.onclick = popup;
+			}
+			function popup(mouseEvent){
+				let isLink = false;
+				let srcElement = mouseEvent.srcElement;
+				while(!isLink && srcElement !== document.body){
+					isLink = srcElement.tagName.toLowerCase() === 'a';
+					srcElement = srcElement.parentElement;
+				}
+
+				if(!isLink && liveCipherer === undefined){
+					let width = 410;
+					let height = 240;
+					let top = (window.innerHeight)/2;
+					let left = (window.innerWidth)/2;
+					liveCipherer = window.open('LiveCipherer.html', '_blank', 'menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=yes,top='+top+',left='+left+',width='+width+',height='+height);
+					if(!liveCipherer || liveCipherer.closed || typeof liveCipherer.closed=='undefined'){ 
+						liveCipherer = undefined;
+					}
+				}
+				if(liveCipherer !== undefined){
+					window.close();
+				}
+			}
+		</script>
+	</head>
+	<body onload="load()">
+		<div>
+			<span>Click to open a Live Cipherer</span>
+			<img class="button-icon" src="icon/Elegantthemes-Beautiful-Flat-One-Color-Submarine.png">
+		</div>
+		<a id="link-to-github" href="https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+		<a id="link-to-submarine" href="http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html">Submarine icon by Elegantthemes</a>
+	</body>
+</html>

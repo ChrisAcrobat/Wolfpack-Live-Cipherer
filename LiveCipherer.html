@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Wolfpack: Live Cipherer</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="yes" name="mobile-web-app-capable">
+		<link href="icon/Elegantthemes-Beautiful-Flat-One-Color-Submarine.png" rel="icon" sizes="128x128">
+		<link href="Stylesheet-Global.css" rel="stylesheet">
+		<link href="Stylesheet.css" rel="stylesheet">
+		<script src="Javascript.js"></script>
+	</head>
+
+	<body onload="load()">
+		<div id="wrapper">
+			<div id="wheel-row">
+				<div id="wheels">
+					<span id="first-wheel">
+						<input type="text" value="A">
+						<input type="button" value="▼">
+						<input type="button" value="▲">
+					</span>
+					<span id="second-wheel" >
+						<input type="text" value="A">
+						<input type="button" value="▼">
+						<input type="button" value="▲">
+					</span>
+					<span id="third-wheel">
+						<input type="text" value="A">
+						<input type="button" value="▼">
+						<input type="button" value="▲">
+					</span>
+				</div>
+				<span class="tooltip">
+					<input id="use-private-key" type="checkbox">
+					<label>Use private key</label>
+					<span class="tooltiptext">Use the first three charasacters per row as private key.</span>
+				</span>
+			</div>
+			<textarea id="upper-input"></textarea>
+			<textarea id="lower-input"></textarea>
+		</div>
+	</body>
+</html>
