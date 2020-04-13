@@ -124,10 +124,11 @@ function callCipher(inputEvent){
 	cipher(inputEvent.target, inputEvent.target === upperInput ? lowerInput : upperInput);
 }
 function cipher(from=upperInput, too=lowerInput){
-	// TODO: Get caretPosition
-	from.value = from.value.toUpperCase();
+	let caretPosition = from.selectionStart
+	from.value = from.value.toUpperCase().replace(REGEX_UNSUPPORTED_CHARS, ' ');
 	too.value = cipherMessage(from.value);
-	// TODO: Set caretPosition
+	from.selectionStart = caretPosition;
+	from.selectionEnd = caretPosition;
 }
 function cipherMessage(message){
 	let cipheredMessage = '';
