@@ -12,4 +12,4 @@ Discussions can be held in the [Steam](https://steamcommunity.com/app/490920/dis
 # Special thanks
 [Submarine Icon](http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/submarine-icon.html) made by [Elegantthemes](http://www.iconarchive.com/artist/elegantthemes.html).
 
-![Submarine icon by Elegantthemes](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/icon/submarine-icon.png?raw=true "Submarine Icon by Elegantthemes")
+![Submarine icon by Elegantthemes](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/res/submarine-icon.png?raw=true "Submarine Icon by Elegantthemes")
