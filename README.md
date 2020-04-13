@@ -4,7 +4,7 @@ Live Cipherer is a fan-made tool written in HTML ([open page](https://chrisacrob
 Current version of Live Cipherer is compatible with Wolfpack `Patch 0.22`, but I do expect the capability to change in the future because I think that the developers are aiming to implement some version of the Enigma's plugboard as well.
 
 ## Usage
-![Sample Live Cipherer image](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/res/live-cipherer.png?raw=true "Sample Live Cipherer image")
+<kbd>![Sample Live Cipherer image](https://github.com/ChrisAcrobat/Wolfpack-Live-Cipherer/blob/master/res/live-cipherer.png?raw=true "Sample Live Cipherer image")</kbd>
 
 What is inserted in the upper comes out ciphered in the lower and vice versa. If the key (rollers) are changed, the inserted messages are updated to the new key*. If `Use private key` is checked, then the first three letters in the message are used as a new key that cipher the rest of the message.
 
