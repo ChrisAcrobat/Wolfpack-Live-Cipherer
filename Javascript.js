@@ -1,6 +1,6 @@
 'use strict'
-const REGEX_UNSUPPORTED_CHARS = /[^A-Z0-9]/;
-const REGEX_UNSUPPORTED_CIPHER_CHARS = /[^A-Z]/;
+const REGEX_UNSUPPORTED_CHARS = /[^A-Z0-9]/g;
+const REGEX_UNSUPPORTED_CIPHER_CHARS = /[^A-Z]/g;
 
 var inputLeftRoller = undefined;
 var inputMiddleRoller = undefined;
@@ -143,7 +143,7 @@ function cipherMessage(message){
 				RIGHT_ROLLER.step(true);
 				cipheredMessage += cipherCharacter(character);
 			}else{
-				cipheredMessage += character.replace(REGEX_UNSUPPORTED_CHARS, ' ');
+				cipheredMessage += character;
 			}
 			let privateKeyIsValid = cipheredMessage.replace(REGEX_UNSUPPORTED_CIPHER_CHARS, '') === cipheredMessage;
 			let privateKeyIsLength = cipheredMessage.length == 3;
